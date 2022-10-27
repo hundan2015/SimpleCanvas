@@ -1,0 +1,57 @@
+Date : 2022-10-26 18:49:44
+Directory : d:\Programing\java\FinalProject\demo
+Total : 16 files,  396 codes, 19 comments, 50 blanks, all 465 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Java     |         15 |        331 |         15 |         43 |        389 |
+| XML      |          1 |         65 |          4 |          7 |         76 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                          | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                             |         16 |        396 |         19 |         50 |        465 |
+| src                                                                                           |          7 |        202 |         14 |         43 |        259 |
+| src\main                                                                                      |          6 |        191 |          8 |         39 |        238 |
+| src\main\java                                                                                 |          6 |        191 |          8 |         39 |        238 |
+| src\main\java\thefinal                                                                        |          6 |        191 |          8 |         39 |        238 |
+| src\main\java\thefinal\guipart                                                                |          2 |        145 |          4 |         23 |        172 |
+| src\main\java\thefinal\pagepart                                                               |          3 |         35 |          0 |         13 |         48 |
+| src\test                                                                                      |          1 |         11 |          6 |          4 |         21 |
+| src\test\java                                                                                 |          1 |         11 |          6 |          4 |         21 |
+| src\test\java\thefinal                                                                        |          1 |         11 |          6 |          4 |         21 |
+| target                                                                                        |          8 |        129 |          1 |          0 |        130 |
+| target\classes                                                                                |          7 |        118 |          1 |          0 |        119 |
+| target\classes\thefinal                                                                       |          7 |        118 |          1 |          0 |        119 |
+| target\classes\thefinal\guipart                                                               |          3 |         74 |          1 |          0 |         75 |
+| target\classes\thefinal\pagepart                                                              |          3 |         33 |          0 |          0 |         33 |
+| target\test-classes                                                                           |          1 |         11 |          0 |          0 |         11 |
+| target\test-classes\thefinal                                                                  |          1 |         11 |          0 |          0 |         11 |
++-----------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                      | language | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| d:\Programing\java\FinalProject\demo\pom.xml                                                  | XML      |         65 |          4 |          7 |         76 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\App.java                          | Java     |         11 |          4 |          3 |         18 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\guipart\EditorGUI.java            | Java     |         87 |          1 |         14 |        102 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\guipart\TheGUI.java               | Java     |         58 |          3 |          9 |         70 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\pagepart\PageManager.java         | Java     |          8 |          0 |          5 |         13 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\pagepart\PageObject.java          | Java     |         18 |          0 |          5 |         23 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\pagepart\ShapeComponent.java      | Java     |          9 |          0 |          3 |         12 |
+| d:\Programing\java\FinalProject\demo\src\test\java\thefinal\AppTest.java                      | Java     |         11 |          6 |          4 |         21 |
+| d:\Programing\java\FinalProject\demo\target\classes\thefinal\App.class                        | Java     |         11 |          0 |          0 |         11 |
+| d:\Programing\java\FinalProject\demo\target\classes\thefinal\guipart\EditorGUI$TempShit.class | Java     |         13 |          1 |          0 |         14 |
+| d:\Programing\java\FinalProject\demo\target\classes\thefinal\guipart\EditorGUI.class          | Java     |         26 |          0 |          0 |         26 |
+| d:\Programing\java\FinalProject\demo\target\classes\thefinal\guipart\TheGUI.class             | Java     |         35 |          0 |          0 |         35 |
+| d:\Programing\java\FinalProject\demo\target\classes\thefinal\pagepart\PageManager.class       | Java     |          8 |          0 |          0 |          8 |
+| d:\Programing\java\FinalProject\demo\target\classes\thefinal\pagepart\PageObject.class        | Java     |         19 |          0 |          0 |         19 |
+| d:\Programing\java\FinalProject\demo\target\classes\thefinal\pagepart\ShapeComponent.class    | Java     |          6 |          0 |          0 |          6 |
+| d:\Programing\java\FinalProject\demo\target\test-classes\thefinal\AppTest.class               | Java     |         11 |          0 |          0 |         11 |
+| Total                                                                                         |          |        396 |         19 |         50 |        465 |
++-----------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
