@@ -10,6 +10,7 @@ import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -37,14 +38,17 @@ public class PageObject {
         container.add(thePage, c);
 
         // test part
-        ShapeList.add(new ShapeComponent(new Rectangle(10, 10)));
-        ShapeList.add(new ShapeComponent(new Rectangle(20, 20)));
+        ShapeList.add(
+                new ShapeComponent("R1", new Point2D.Double(2., 2.), new Point2D.Double(10., 10.),
+                        new Rectangle(10, 10)));
+        ShapeList.add(
+                new ShapeComponent("R2", new Point2D.Double(0., 0.), new Point2D.Double(20., 20.),
+                        new Rectangle(20, 20)));
     }
 
     public ShapeComponent getTheShape(double x, double y) {
         for (ShapeComponent shapeComponent : ShapeList) {
-            if (shapeComponent.getShape().contains((x - shapeComponent.x) / shapeComponent.scaleX,
-                    (y - shapeComponent.y) / shapeComponent.scaleY)) {
+            if (shapeComponent.contains(x, y)) {
                 System.out.println("Get the shape " + shapeComponent.name);
                 return shapeComponent;
             }
@@ -95,7 +99,7 @@ public class PageObject {
         }
     }
 
-    class PageMouseMoveListener implements MouseMotionListener, MouseInputListener {
+    class PageMouseMoveListener implements MouseInputListener {
         PageObject pageObject;
         ShapeComponent currentShape;
 
@@ -117,20 +121,8 @@ public class PageObject {
             if (currentShape != null) {
                 if (currentOperation == 1) {
 
-                    currentShape.theTransform.translate(currentShape.x - currentShape.lastX,
-                            currentShape.y - currentShape.lastY);
-                    currentShape.setPos(e.getX(), e.getY());
-
-                    /*
-                     * currentShape.theTransform.translate(e.getX() - lastMousePosX,
-                     * e.getY() - lastMousePosY);
-                     * currentShape.setPos(e.getX(), e.getY());
-                     */
-                    // TODO:使用方框来进行大小缩放
                 } else if (currentOperation == 2) {
-                    currentShape.setScale(e.getX(), e.getY());
-                    currentShape.theTransform.scale((currentShape.scaleX - currentShape.lastScaleX) * 0.1 + 1,
-                            (currentShape.scaleY - currentShape.lastScaleY) * 0.1 + 1);
+
                 }
                 setLastMousePos(e.getX(), e.getY());
                 //
@@ -141,7 +133,6 @@ public class PageObject {
         @Override
         public void mouseMoved(MouseEvent e) {
 
-            // TODO Auto-generated method stub
             /*
              * if (pageObject.getTheShape(e.getX(), e.getY()) != null) {
              * System.out.println("Not Null");
@@ -151,7 +142,6 @@ public class PageObject {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            // TODO Auto-generated method stub
             // currentShape = pageObject.getTheShape(e.getX(), e.getY());
             if (e.getButton() == 3) {
 
@@ -165,20 +155,14 @@ public class PageObject {
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            // TODO Auto-generated method stub
-
         }
 
         @Override
         public void mouseEntered(MouseEvent e) {
-            // TODO Auto-generated method stub
-
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
-            // TODO Auto-generated method stub
-
         }
 
     }
@@ -201,7 +185,7 @@ class Page extends JPanel {
         for (ShapeComponent shapeComponent : shapeArray) {
             AffineTransform saveShit = theNewG.getTransform();
             // theNewG.translate(shapeComponent.lastX, shapeComponent.lastY);
-            theNewG.transform(shapeComponent.theTransform);
+            theNewG.transform(shapeComponent.getShapeTransform());
             theNewG.draw(shapeComponent.getShape());
             theNewG.setTransform(saveShit);
             // theNewG.setTransform(new AffineTransform());
