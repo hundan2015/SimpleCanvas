@@ -1,8 +1,9 @@
-package thefinal.pagepart;
+package thefinal.pagepart.ShapePart;
 
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
 public class ShapeComponent {
     Shape theShape;
@@ -11,6 +12,8 @@ public class ShapeComponent {
     // Reflect: 整点基于Anchor的
     public Point2D.Double anchor1 = new Point2D.Double(0., 0.);
     public Point2D.Double anchor2 = new Point2D.Double(10., 10.);
+
+    private double ANCHORDISTANCE = 2;
 
     public ShapeComponent(String name, Point2D.Double anchor1, Point2D.Double anchor2, Shape shape) {
         this.name = name;
@@ -28,7 +31,6 @@ public class ShapeComponent {
     public AffineTransform getShapeTransform() {
         AffineTransform res = new AffineTransform();
         // 如此的设计可以保证跟手
-        res.scale((anchor2.x - anchor1.y) / defaultScaleX, (anchor2.y - anchor1.y) / defaultScaleY);
         res.translate(anchor1.x, anchor1.y);
         return res;
     }
@@ -53,6 +55,22 @@ public class ShapeComponent {
     public Shape getShape() {
         return theShape;
     }
+
+    public Point2D.Double getAnchor(Point2D mousePoint2d) {
+        if (mousePoint2d.distance(anchor1) <= ANCHORDISTANCE) {
+            return anchor1;
+        } else if (mousePoint2d.distance(anchor2) <= ANCHORDISTANCE) {
+            return anchor2;
+        }
+        return null;
+    }
+
     // TODO:能不能实现一个Shape的管理类？使得shape可以依靠Anchor进行操作？
     // TODO:同时希望这个模型是MVVM的，即通过ViewModel来更新数据。
+    public void getShapeChanged() {
+    }
+
+    public void setScale() {
+        
+    }
 }

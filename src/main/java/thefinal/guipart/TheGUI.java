@@ -7,17 +7,20 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.DebugGraphics;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
+import javax.swing.border.Border;
 
+import thefinal.SceneSystem.StageObject;
 import thefinal.pagepart.PageObject;
 
 public class TheGUI {
     JFrame mainFrame;
-    ArrayList<PageObject> pageList;
-    
+    ArrayList<StageObject> pageList;
+
     JPanel currentPanel;
     GridBagLayout theLayout;
     JPanel selectStage;
@@ -56,31 +59,23 @@ public class TheGUI {
         }
         // display part.
         pageList = new ArrayList<>();
-        pageList.add(new PageObject(theContainer));
-        /* currentPanel = pageList.get(0).thePage;
+        pageList.add(new StageObject());
+        GridBagConstraints ss = new GridBagConstraints();
+        ss.gridheight = 7;
+        ss.gridwidth = 8;
+        ss.gridx = 1;
+        ss.gridy = 1;
+        mainFrame.add(pageList.get(0), ss);
 
-        currentPanel.setPreferredSize(new Dimension(800,600));
-        currentPanel.setBackground(Color.white);
-        currentPanel.addMouseMotionListener(new MouseMotionListener() {
-
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                // TODO Auto-generated method stub
-                System.out.println(e.getX());
-            }
-
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                
-            }
-            
-        });
+        // Configure panel part.
         c = new GridBagConstraints();
         c.gridheight = 7;
-        c.gridwidth = 11;
-        c.gridx = 1;
+        c.gridwidth = 3;
+        c.gridx = 9;
         c.gridy = 1;
-        theContainer.add(currentPanel, c); */
+        InfoGUI infoGUI = new InfoGUI();
+        theContainer.add(infoGUI, c);
+        
 
         mainFrame.pack();
         mainFrame.setVisible(true);
