@@ -66,7 +66,6 @@ public class TheGUI {
         ss.gridx = 1;
         ss.gridy = 1;
         mainFrame.add(pageList.get(0), ss);
-
         // Configure panel part.
         c = new GridBagConstraints();
         c.gridheight = 7;
@@ -75,7 +74,6 @@ public class TheGUI {
         c.gridy = 1;
         InfoGUI infoGUI = new InfoGUI();
         theContainer.add(infoGUI, c);
-        
 
         mainFrame.pack();
         mainFrame.setVisible(true);

@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import thefinal.GlobalModel;
+
 public class StageObject extends JPanel {
     ArrayList<ActorObject> actorList;
     ActorObject currentActor = null;
@@ -25,24 +27,6 @@ public class StageObject extends JPanel {
 
         // test part
         addActor(new ActorObject(new Rectangle(10, 10), new Point(0, 0), new Point(10, 10)));
-    }
-
-    void getActor(Point mousePosition) {
-        for (ActorObject actorObject : actorList) {
-            if (actorObject.isContain(mousePosition)) {
-                currentActor = actorObject;
-                return;
-            }
-        }
-        currentActor = null;
-    }
-
-    public ActorObject getCurrentActor() {
-        return currentActor;
-    }
-
-    public void clearCurrentActor() {
-        currentActor = null;
     }
 
     public void addActor(ActorObject actor) {
@@ -68,5 +52,17 @@ public class StageObject extends JPanel {
             newG.draw(actorObject.getShape());
             newG.setTransform(tempTransform);
         }
+    }
+
+    void getActor(Point mousePosition) {
+        for (ActorObject actorObject : actorList) {
+            if (actorObject.isContain(mousePosition)) {
+                // currentActor = actorObject;
+                GlobalModel.setCurrentActor(actorObject);
+                return;
+            }
+        }
+        // currentActor = null;
+        GlobalModel.setCurrentActor(null);
     }
 }
