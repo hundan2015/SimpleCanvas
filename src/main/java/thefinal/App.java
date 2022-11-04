@@ -8,11 +8,12 @@ import thefinal.guipart.TheGUI;
  */
 public class App {
     public static void main(String[] args) {
+        GlobalModel.initGlobalModel();
         TheGUI theGUI = new TheGUI();
-        Thread tickThread = new Thread(new GlobalTick());
-        tickThread.start();
+        // Thread tickThread = new Thread(new GlobalTick());
+        // tickThread.start();
         theGUI.InitGUI();
-        tickThread.run();
+        // tickThread.run();
         System.out.println("Hello World!");
     }
 }

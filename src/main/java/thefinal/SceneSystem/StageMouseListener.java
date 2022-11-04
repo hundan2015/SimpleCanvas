@@ -23,13 +23,15 @@ public class StageMouseListener implements MouseInputListener {
         if (GlobalModel.getCurrentActor() != null) {
             System.out.println("StageMouseListener::Get the actor");
             ActorObject temp = GlobalModel.getCurrentActor();
-            temp.transform.x = e.getPoint().x - 2;
-            temp.transform.y = e.getY() - 2;
+            // temp.transform.x = e.getPoint().x - 2;
+            temp.transform.x = (int) (e.getPoint().x - temp.size.x * temp.scale.x / 2);
+            // temp.transform.y = e.getY() - 2;
+            temp.transform.y = (int) (e.getY() - temp.size.y * temp.scale.y / 2);
         } else {
 
             actionType = 0;
         }
-        //InfoGUIUpdater.updateModel();
+        // InfoGUIUpdater.updateModel();
         // TODO:repaint part
         stageObject.repaint();
         InfoGUIUpdater.updateGUI();

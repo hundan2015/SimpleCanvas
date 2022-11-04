@@ -13,6 +13,8 @@ import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
+import thefinal.GlobalModel;
+
 public class EditorGUI extends JPanel {
         JButton newPageBtn;
         JButton delPageBtn;
@@ -27,15 +29,17 @@ public class EditorGUI extends JPanel {
                 setBorder(BorderFactory.createTitledBorder("ToolSet"));
                 theLayout = new GridBagLayout();
                 setLayout(theLayout);
+                // New page BTN
                 newPageBtn = new JButton("New Page");
                 addNewComponent(newPageBtn,
                                 GridBagConstraints.NORTHEAST,
                                 0, 0, 1, 1);
-
+                // Delete page BTN
                 delPageBtn = new JButton("Delete Page");
                 addNewComponent(delPageBtn,
                                 GridBagConstraints.NORTHEAST,
                                 1, 0, 1, 1);
+                // Color Picker Btn
                 colorPickerBtn = new JButton("Pick Color");
                 EditorGUI self = this;
 
@@ -45,17 +49,23 @@ public class EditorGUI extends JPanel {
                 addNewComponent(colorPickerBtn,
                                 GridBagConstraints.NORTHEAST,
                                 2, 0, 1, 1);
+
+                EditorGUIBtnActionListener editorGUIBtnActionListener = new EditorGUIBtnActionListener();
+                // Create object BTN
                 createObjectBtn = new JButton("Create Shape");
+                createObjectBtn.setActionCommand("CREATEO");
+                createObjectBtn.addActionListener(editorGUIBtnActionListener);
                 addNewComponent(createObjectBtn,
                                 GridBagConstraints.NORTHEAST,
                                 3, 0, 1, 1);
+                // Delete object BTN
                 delObjectBtn = new JButton("Del Shape");
-                delObjectBtn.setActionCommand("DEL");
-                delObjectBtn.addActionListener(new EditorGUIBtnActionListener());
-
+                delObjectBtn.setActionCommand("DELO");
+                delObjectBtn.addActionListener(editorGUIBtnActionListener);
                 addNewComponent(delObjectBtn,
                                 GridBagConstraints.NORTHEAST,
                                 4, 0, 1, 1);
+
                 // TODO: Modify a new FontSelector.
                 theFontSelector = new JComboBox<String>();
                 theFontSelector.addItem("Yahei");
@@ -65,9 +75,18 @@ public class EditorGUI extends JPanel {
                                 5, 0, 1, 1);
 
                 theShapeSelector = new JComboBox<String>();
-                theShapeSelector.addItem("Colom");
-                theShapeSelector.addItem("Rectangle");
-                theShapeSelector.addItem("Triangle");
+                theShapeSelector.addItem("Circle");
+                theShapeSelector.addItem("Square");
+                theShapeSelector.addItem("Line");
+                theShapeSelector.addActionListener(new ActionListener() {
+
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                                int shit = theShapeSelector.getSelectedIndex();
+                                GlobalModel.selectShape = shit;
+                        }
+
+                });
                 addNewComponent(theShapeSelector,
                                 GridBagConstraints.NORTHEAST,
                                 6, 0, 1, 1);

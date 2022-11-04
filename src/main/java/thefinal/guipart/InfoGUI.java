@@ -15,8 +15,8 @@ import javax.swing.JTextField;
 
 import thefinal.GlobalModel;
 
-public class InfoGUI extends JPanel implements TickAble {
-    JTextField posX, posY, scaleX, scaleY;
+public class InfoGUI extends JPanel {
+    JTextField posX, posY, scaleX, scaleY, rotation;
     JButton updateBtn;
     JLabel objectName;
 
@@ -31,6 +31,7 @@ public class InfoGUI extends JPanel implements TickAble {
         posY = makeNewTextArea("PosY", posY, 1, 1, new IntAreaListener());
         scaleX = makeNewTextArea("ScaleX", scaleX, 0, 2, new DoubleAreaListener());
         scaleY = makeNewTextArea("ScaleY", scaleY, 1, 2, new DoubleAreaListener());
+        rotation = makeNewTextArea("Rotation", rotation, 3, 1, new DoubleAreaListener());
         updateBtn = new JButton("UpdateModel");
         // setPreferredSize(new Dimension(120, 500));
         setBorder(BorderFactory.createTitledBorder("Configure"));
@@ -70,11 +71,13 @@ public class InfoGUI extends JPanel implements TickAble {
             posY.setText(Integer.toString(GlobalModel.currentActor.transform.y));
             scaleX.setText(Double.toString(GlobalModel.currentActor.scale.x));
             scaleY.setText(Double.toString(GlobalModel.currentActor.scale.y));
+            rotation.setText(Double.toString(GlobalModel.currentActor.rotation));
         } else {
             posX.setText("0");
             posY.setText("0");
             scaleX.setText("0");
             scaleY.setText("0");
+            rotation.setText("0");
         }
     }
 
@@ -84,12 +87,9 @@ public class InfoGUI extends JPanel implements TickAble {
             GlobalModel.currentActor.transform.y = Integer.parseInt(posY.getText());
             GlobalModel.currentActor.scale.x = Double.parseDouble(scaleX.getText());
             GlobalModel.currentActor.scale.y = Double.parseDouble(scaleY.getText());
+            GlobalModel.currentActor.rotation = Double.parseDouble(rotation.getText());
         }
-    }
-
-    public void tick() {
-        updateModel();
-        updateGUI();
+        GlobalModel.currentStage.repaint();
     }
 
     @Override

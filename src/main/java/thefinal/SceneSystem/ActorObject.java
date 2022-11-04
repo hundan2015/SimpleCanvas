@@ -7,6 +7,7 @@ import java.awt.geom.AffineTransform;
 public class ActorObject {
     public Point transform;
     public Point.Double scale;
+    public double rotation;
     Point size;
     Shape shape;
 
@@ -19,11 +20,12 @@ public class ActorObject {
      *                  double anchors position and
      *                  other fucking shit are fucking right.
      */
-    ActorObject(Shape shape, Point transform, Point size) {
+    public ActorObject(Shape shape, Point transform, Point size) {
         this.shape = shape;
         this.transform = transform;
         this.size = size;
-        this.scale = new Point.Double(1, 2);
+        this.scale = new Point.Double(1, 1);
+        rotation = 0;
     }
 
     public Shape getShape() {
@@ -48,8 +50,15 @@ public class ActorObject {
 
     public AffineTransform getActorTransform() {
         AffineTransform res = new AffineTransform();
-        res.translate(transform.x, transform.y);
-        res.scale(scale.x, scale.y); // Fucking weird. Why the scale is after translate??
+
+        res.translate(transform.x
+                + size.x * scale.x / 2, transform.y + size.y * scale.y / 2);
+        res.rotate(rotation);
+        // To make sure the rotation does'nt change the shape's center.
+        // But it's also FUCKING WEIRD!!!!
+        res.translate(-size.x * scale.x / 2, -size.y * scale.y / 2);
+        res.scale(scale.x, scale.y);
+        // Fucking weird. Why the scale is after translate??
         return res;
     }
 }

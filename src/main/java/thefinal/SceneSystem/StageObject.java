@@ -12,11 +12,9 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import thefinal.GlobalModel;
-import thefinal.GlobalTick;
 
 public class StageObject extends JPanel {
     ArrayList<ActorObject> actorList;
-    ActorObject currentActor = null;
 
     public StageObject() {
         actorList = new ArrayList<>();
@@ -28,7 +26,7 @@ public class StageObject extends JPanel {
 
         // test part
         addActor(new ActorObject(new Rectangle(10, 10), new Point(0, 0), new Point(10, 10)));
-        GlobalTick.registerComponent(this);
+        // GlobalTick.registerComponent(this);
     }
 
     public void addActor(ActorObject actor) {
@@ -37,9 +35,16 @@ public class StageObject extends JPanel {
 
     public void removeActor(Point mousePositon) {
         getActor(mousePositon);
-        if (currentActor != null) {
-            actorList.remove(currentActor);
-            currentActor = null;
+        if (GlobalModel.currentActor != null) {
+            actorList.remove(GlobalModel.currentActor);
+            GlobalModel.currentActor = null;
+        }
+    }
+
+    public void removeCurrentActor() {
+        if (GlobalModel.currentActor != null) {
+            actorList.remove(GlobalModel.currentActor);
+            GlobalModel.currentActor = null;
         }
     }
 

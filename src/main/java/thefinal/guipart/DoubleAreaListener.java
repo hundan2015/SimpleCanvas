@@ -1,12 +1,13 @@
 package thefinal.guipart;
 
 import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JTextField;
 
-public class DoubleAreaListener extends InputNumArea{
+import thefinal.GlobalModel;
+
+public class DoubleAreaListener extends InputNumArea {
     JTextField textField;
 
     public void bindTextField(JTextField textField) {
@@ -29,6 +30,7 @@ public class DoubleAreaListener extends InputNumArea{
         if (textField.getText().isEmpty() == false) {
             InfoGUIUpdater.updateModel();
         }
+        
         // InfoGUIUpdater.updateGUI();
 
     }
