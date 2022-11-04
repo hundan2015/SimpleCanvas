@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.event.MouseInputListener;
 
 import thefinal.GlobalModel;
+import thefinal.guipart.InfoGUIUpdater;
 
 public class StageMouseListener implements MouseInputListener {
 
@@ -28,7 +29,10 @@ public class StageMouseListener implements MouseInputListener {
 
             actionType = 0;
         }
+        //InfoGUIUpdater.updateModel();
+        // TODO:repaint part
         stageObject.repaint();
+        InfoGUIUpdater.updateGUI();
     }
 
     @Override

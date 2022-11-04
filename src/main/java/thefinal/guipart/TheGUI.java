@@ -1,21 +1,18 @@
 package thefinal.guipart;
 
+import java.awt.Container;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.util.ArrayList;
-import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.DebugGraphics;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
-import javax.swing.border.Border;
 
 import thefinal.SceneSystem.StageObject;
-import thefinal.pagepart.PageObject;
 
 public class TheGUI {
     JFrame mainFrame;

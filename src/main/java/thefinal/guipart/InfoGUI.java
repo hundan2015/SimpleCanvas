@@ -2,40 +2,43 @@ package thefinal.guipart;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.KeyAdapter;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import thefinal.SceneSystem.ActorObject;
+import thefinal.GlobalModel;
 
-public class InfoGUI extends JPanel {
+public class InfoGUI extends JPanel implements TickAble {
     JTextField posX, posY, scaleX, scaleY;
-    ActorObject currentObject;
-
+    JButton updateBtn;
     JLabel objectName;
 
     InfoGUI() {
         setSize(100, 500);
         setLayout(new GridBagLayout());
-        objectName = new JLabel("Empty");
+        objectName = new JLabel("Press enter to update shape");
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = c.gridy = 0;
         add(objectName, c);
-        makeNewTextArea("PosX", posX, 0, 1, new IntAreaListener());
-        makeNewTextArea("PosY", posY, 1, 1, new IntAreaListener());
-        makeNewTextArea("ScaleX", scaleX, 0, 2, new DoubleAreaListener());
-        makeNewTextArea("ScaleY", scaleY, 1, 2, new DoubleAreaListener());
+        posX = makeNewTextArea("PosX", posX, 0, 1, new IntAreaListener());
+        posY = makeNewTextArea("PosY", posY, 1, 1, new IntAreaListener());
+        scaleX = makeNewTextArea("ScaleX", scaleX, 0, 2, new DoubleAreaListener());
+        scaleY = makeNewTextArea("ScaleY", scaleY, 1, 2, new DoubleAreaListener());
+        updateBtn = new JButton("UpdateModel");
         // setPreferredSize(new Dimension(120, 500));
         setBorder(BorderFactory.createTitledBorder("Configure"));
 
+        InfoGUIUpdater.setInfoGUI(this);
     }
 
-    private void makeNewTextArea(String name, JTextField textfield, int gridPosX, int gridPosY,
+    private JTextField makeNewTextArea(String name, JTextField textfield, int gridPosX, int gridPosY,
             InputNumArea keyAdapter) {
         GridBagConstraints c = new GridBagConstraints();
 
@@ -55,32 +58,45 @@ public class InfoGUI extends JPanel {
 
         keyAdapter.bindTextField(textfield);
         textfield.addKeyListener((KeyAdapter) keyAdapter);
+        textfield.addFocusListener(keyAdapter);
         add(textfield, c);
-    }
-
-    public void setCurrentObject(ActorObject currentObject) {
-        this.currentObject = currentObject;
-    }
-
-    public ActorObject getCurrentObject() {
-        return currentObject;
+        return textfield;
     }
 
     void updateGUI() {
-        if (currentObject != null) {
-            posX.setText(Integer.toString(currentObject.transform.x));
-            posY.setText(Integer.toString(currentObject.transform.y));
-            scaleX.setText(Integer.toString(currentObject.scale.x));
-            scaleY.setText(Integer.toString(currentObject.scale.y));
+        System.out.println("Updating");
+        if (GlobalModel.currentActor != null) {
+            posX.setText(Integer.toString(GlobalModel.currentActor.transform.x));
+            posY.setText(Integer.toString(GlobalModel.currentActor.transform.y));
+            scaleX.setText(Double.toString(GlobalModel.currentActor.scale.x));
+            scaleY.setText(Double.toString(GlobalModel.currentActor.scale.y));
+        } else {
+            posX.setText("0");
+            posY.setText("0");
+            scaleX.setText("0");
+            scaleY.setText("0");
         }
     }
 
     void updateModel() {
-        if (currentObject != null) {
-            currentObject.transform.x = Integer.parseInt(posX.getText());
-            currentObject.transform.y = Integer.parseInt(posY.getText());
-            currentObject.scale.x = Integer.parseInt(scaleX.getText());
-            currentObject.scale.y = Integer.parseInt(scaleY.getText());
+        if (GlobalModel.currentActor != null) {
+            GlobalModel.currentActor.transform.x = Integer.parseInt(posX.getText());
+            GlobalModel.currentActor.transform.y = Integer.parseInt(posY.getText());
+            GlobalModel.currentActor.scale.x = Double.parseDouble(scaleX.getText());
+            GlobalModel.currentActor.scale.y = Double.parseDouble(scaleY.getText());
         }
     }
+
+    public void tick() {
+        updateModel();
+        updateGUI();
+    }
+
+    @Override
+    public void paint(Graphics graphics) {
+        updateModel();
+        super.paint(graphics);
+        updateGUI();
+    }
+
 }

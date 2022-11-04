@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import thefinal.GlobalModel;
+import thefinal.GlobalTick;
 
 public class StageObject extends JPanel {
     ArrayList<ActorObject> actorList;
@@ -27,6 +28,7 @@ public class StageObject extends JPanel {
 
         // test part
         addActor(new ActorObject(new Rectangle(10, 10), new Point(0, 0), new Point(10, 10)));
+        GlobalTick.registerComponent(this);
     }
 
     public void addActor(ActorObject actor) {

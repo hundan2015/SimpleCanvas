@@ -6,7 +6,7 @@ import java.awt.geom.AffineTransform;
 
 public class ActorObject {
     public Point transform;
-    public Point scale;
+    public Point.Double scale;
     Point size;
     Shape shape;
 
@@ -23,7 +23,7 @@ public class ActorObject {
         this.shape = shape;
         this.transform = transform;
         this.size = size;
-        this.scale = new Point(1, 2);
+        this.scale = new Point.Double(1, 2);
     }
 
     public Shape getShape() {
@@ -34,7 +34,7 @@ public class ActorObject {
         int x = mousePosition.x;
         int y = mousePosition.y;
         Point anchor1 = transform;
-        Point anchor2 = new Point(transform.x + scale.x * size.x, transform.y + scale.y * size.y);
+        Point anchor2 = new Point((int) (transform.x + scale.x * size.x), (int) (transform.y + scale.y * size.y));
         if (anchor1.x > anchor2.x && anchor1.y > anchor2.y) {
             return x <= anchor1.x && x >= anchor2.x && y <= anchor1.y && y >= anchor2.y;
         } else if (anchor1.x < anchor2.x && anchor1.y > anchor2.y) {

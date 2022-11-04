@@ -1,10 +1,12 @@
 package thefinal.guipart;
 
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JTextField;
 
-public class DoubleAreaListener extends InputNumArea {
+public class DoubleAreaListener extends InputNumArea{
     JTextField textField;
 
     public void bindTextField(JTextField textField) {
@@ -24,5 +26,22 @@ public class DoubleAreaListener extends InputNumArea {
         } else {
             e.consume();
         }
+        if (textField.getText().isEmpty() == false) {
+            InfoGUIUpdater.updateModel();
+        }
+        // InfoGUIUpdater.updateGUI();
+
+    }
+
+    @Override
+    public void focusGained(FocusEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void focusLost(FocusEvent e) {
+        InfoGUIUpdater.updateModel();
+
     }
 }
