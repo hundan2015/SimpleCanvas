@@ -2,8 +2,10 @@ package thefinal.guipart;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,7 +13,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import thefinal.GlobalModel;
 
@@ -66,18 +70,12 @@ public class EditorGUI extends JPanel {
                                 GridBagConstraints.NORTHEAST,
                                 4, 0, 1, 1);
 
-                // TODO: Modify a new FontSelector.
-                theFontSelector = new JComboBox<String>();
-                theFontSelector.addItem("Yahei");
-                theFontSelector.addItem("Song");
-                addNewComponent(theFontSelector,
-                                GridBagConstraints.NORTHEAST,
-                                5, 0, 1, 1);
-
                 theShapeSelector = new JComboBox<String>();
                 theShapeSelector.addItem("Circle");
                 theShapeSelector.addItem("Square");
                 theShapeSelector.addItem("Line");
+                theShapeSelector.addItem("Text");
+
                 theShapeSelector.addActionListener(new ActionListener() {
 
                         @Override
@@ -90,6 +88,15 @@ public class EditorGUI extends JPanel {
                 addNewComponent(theShapeSelector,
                                 GridBagConstraints.NORTHEAST,
                                 6, 0, 1, 1);
+
+                JTextField heighTextField = new JTextField();
+                heighTextField.setBorder(BorderFactory.createBevelBorder(1));
+                IntAreaListener listener = new IntAreaListener();
+                listener.bindTextField(heighTextField);
+                heighTextField.addKeyListener(listener);
+                heighTextField.setPreferredSize(new Dimension(40, 30));
+                addNewComponent(new JLabel("height"), GridBagConstraints.NORTHEAST,7, 0, 1, 1);
+                addNewComponent(heighTextField, GridBagConstraints.NORTHEAST, 8, 0, 1, 1);
 
         }
 
@@ -113,9 +120,9 @@ public class EditorGUI extends JPanel {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                        Color res = JColorChooser.showDialog(colorPickerBtn, "Color Picker", Color.white);
-                        colorPickerBtn.setBackground(res);
-                        thefuck.setBackground(res);
+                        GlobalModel.shapeColor = JColorChooser.showDialog(colorPickerBtn, "Color Picker", Color.white);
+                        colorPickerBtn.setBackground(GlobalModel.shapeColor);
+                        //thefuck.setBackground(GlobalModel.shapeColor);
                 }
         }
 }

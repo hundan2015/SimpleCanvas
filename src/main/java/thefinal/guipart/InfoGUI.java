@@ -5,11 +5,15 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -19,6 +23,7 @@ public class InfoGUI extends JPanel {
     JTextField posX, posY, scaleX, scaleY, rotation;
     JButton updateBtn;
     JLabel objectName;
+    JCheckBox filledBox;
 
     InfoGUI() {
         setSize(100, 500);
@@ -31,8 +36,21 @@ public class InfoGUI extends JPanel {
         posY = makeNewTextArea("PosY", posY, 1, 1, new IntAreaListener());
         scaleX = makeNewTextArea("ScaleX", scaleX, 0, 2, new DoubleAreaListener());
         scaleY = makeNewTextArea("ScaleY", scaleY, 1, 2, new DoubleAreaListener());
-        rotation = makeNewTextArea("Rotation", rotation, 3, 1, new DoubleAreaListener());
-        updateBtn = new JButton("UpdateModel");
+        rotation = makeNewTextArea("Rotate", rotation, 0, 3, new DoubleAreaListener());
+
+        filledBox = new JCheckBox();
+        filledBox.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateModel();
+            }
+            
+        });
+        GridBagConstraints c1 = new GridBagConstraints();
+        c1.gridx = 1;
+        c1.gridy = 3;
+        add(filledBox, c1);
         // setPreferredSize(new Dimension(120, 500));
         setBorder(BorderFactory.createTitledBorder("Configure"));
 
@@ -72,12 +90,14 @@ public class InfoGUI extends JPanel {
             scaleX.setText(Double.toString(GlobalModel.currentActor.scale.x));
             scaleY.setText(Double.toString(GlobalModel.currentActor.scale.y));
             rotation.setText(Double.toString(GlobalModel.currentActor.rotation));
+            filledBox.setSelected(GlobalModel.currentActor.isFilled);
         } else {
             posX.setText("0");
             posY.setText("0");
             scaleX.setText("0");
             scaleY.setText("0");
             rotation.setText("0");
+            filledBox.setSelected(false);
         }
     }
 
@@ -88,6 +108,7 @@ public class InfoGUI extends JPanel {
             GlobalModel.currentActor.scale.x = Double.parseDouble(scaleX.getText());
             GlobalModel.currentActor.scale.y = Double.parseDouble(scaleY.getText());
             GlobalModel.currentActor.rotation = Double.parseDouble(rotation.getText());
+            GlobalModel.currentActor.isFilled = filledBox.isSelected();
         }
         GlobalModel.currentStage.repaint();
     }

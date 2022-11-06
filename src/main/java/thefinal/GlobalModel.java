@@ -1,5 +1,6 @@
 package thefinal;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import thefinal.SceneSystem.ActorObject;
@@ -17,9 +18,11 @@ public class GlobalModel {
         selectShape = 0;
     }
 
-    static public  int selectShape;
+    static public int selectShape;
     static public ActorObject currentActor;
     static public StageObject currentStage;
+    static double shapeHeight;
+    static public Color shapeColor;
 
     static public ActorObject getCurrentActor() {
         return currentActor;

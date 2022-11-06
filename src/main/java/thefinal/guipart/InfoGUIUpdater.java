@@ -15,3 +15,4 @@ public class InfoGUIUpdater {
         infoGUI.updateGUI();
     }
 }
+// FUCK JAVA

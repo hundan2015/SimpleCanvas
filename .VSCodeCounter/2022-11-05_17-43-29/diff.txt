@@ -1,0 +1,68 @@
+Date : 2022-11-05 17:43:29
+Directory : d:\Programing\java\FinalProject\demo
+Total : 32 files,  190 codes, 29 comments, 11 blanks, all 230 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Java     |         31 |        187 |         29 |         10 |        226 |
+| Markdown |          1 |          3 |          0 |          1 |          4 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                       | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                          |         32 |        190 |         29 |         11 |        230 |
+| src                                                                                                        |         15 |        106 |         30 |          8 |        144 |
+| src\main                                                                                                   |         15 |        106 |         30 |          8 |        144 |
+| src\main\java                                                                                              |         15 |        106 |         30 |          8 |        144 |
+| src\main\java\thefinal                                                                                     |         15 |        106 |         30 |          8 |        144 |
+| src\main\java\thefinal\SceneSystem                                                                         |          5 |          9 |          3 |          1 |         13 |
+| src\main\java\thefinal\guipart                                                                             |          7 |        127 |         24 |         17 |        168 |
+| target                                                                                                     |         16 |         81 |         -1 |          2 |         82 |
+| target\classes                                                                                             |         16 |         81 |         -1 |          2 |         82 |
+| target\classes\thefinal                                                                                    |         16 |         81 |         -1 |          2 |         82 |
+| target\classes\thefinal\SceneSystem                                                                        |          5 |          5 |         -6 |          1 |          0 |
+| target\classes\thefinal\guipart                                                                            |          8 |         98 |          5 |          1 |        104 |
++------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                   | language | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| d:\Programing\java\FinalProject\demo\readme.md                                                             | Markdown |          3 |          0 |          1 |          4 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\App.java                                       | Java     |         -3 |          3 |          0 |          0 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\GlobalModel.java                               | Java     |          5 |          0 |          0 |          5 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\GlobalTick.java                                | Java     |        -32 |          0 |        -10 |        -42 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\SceneSystem\ActorFactory.java                  | Java     |          9 |          0 |          3 |         12 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\SceneSystem\ActorManager.java                  | Java     |         -8 |         -4 |         -4 |        -16 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\SceneSystem\ActorObject.java                   | Java     |          5 |          4 |          1 |         10 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\SceneSystem\StageMouseListener.java            | Java     |          0 |          2 |          0 |          2 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\SceneSystem\StageObject.java                   | Java     |          3 |          1 |          1 |          5 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\guipart\DoubleAreaListener.java                | Java     |          0 |          0 |          2 |          2 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\guipart\EditorGUI.java                         | Java     |          9 |          0 |          4 |         13 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\guipart\EditorGUIBtnActionListener.java        | Java     |         76 |          6 |          4 |         86 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\guipart\InfoGUI.java                           | Java     |          2 |          0 |          0 |          2 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\guipart\QuickConstraintFactory.java            | Java     |         31 |         15 |          7 |         53 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\guipart\TheGUI.java                            | Java     |         13 |          3 |          2 |         18 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\guipart\TickAble.java                          | Java     |         -4 |          0 |         -2 |         -6 |
+| d:\Programing\java\FinalProject\demo\target\classes\thefinal\App.class                                     | Java     |         -5 |          0 |          0 |         -5 |
+| d:\Programing\java\FinalProject\demo\target\classes\thefinal\GlobalModel.class                             | Java     |          1 |          0 |          0 |          1 |
+| d:\Programing\java\FinalProject\demo\target\classes\thefinal\GlobalTick.class                              | Java     |        -18 |          0 |          0 |        -18 |
+| d:\Programing\java\FinalProject\demo\target\classes\thefinal\SceneSystem\ActorFactory.class                | Java     |         10 |          0 |          0 |         10 |
+| d:\Programing\java\FinalProject\demo\target\classes\thefinal\SceneSystem\ActorManager.class                | Java     |         -9 |          0 |          0 |         -9 |
+| d:\Programing\java\FinalProject\demo\target\classes\thefinal\SceneSystem\ActorObject.class                 | Java     |          3 |          0 |          1 |          4 |
+| d:\Programing\java\FinalProject\demo\target\classes\thefinal\SceneSystem\StageMouseListener.class          | Java     |          1 |          0 |          0 |          1 |
+| d:\Programing\java\FinalProject\demo\target\classes\thefinal\SceneSystem\StageObject.class                 | Java     |          0 |         -6 |          0 |         -6 |
+| d:\Programing\java\FinalProject\demo\target\classes\thefinal\guipart\EditorGUI$1.class                     | Java     |          9 |          0 |          0 |          9 |
+| d:\Programing\java\FinalProject\demo\target\classes\thefinal\guipart\EditorGUI.class                       | Java     |          1 |          0 |          0 |          1 |
+| d:\Programing\java\FinalProject\demo\target\classes\thefinal\guipart\EditorGUIBtnActionListener.class      | Java     |         51 |          0 |          0 |         51 |
+| d:\Programing\java\FinalProject\demo\target\classes\thefinal\guipart\InfoGUI.class                         | Java     |         -2 |          5 |          0 |          3 |
+| d:\Programing\java\FinalProject\demo\target\classes\thefinal\guipart\QuickConstraintFactory.class          | Java     |         22 |          0 |          0 |         22 |
+| d:\Programing\java\FinalProject\demo\target\classes\thefinal\guipart\TheGUI$PageSelectActionListener.class | Java     |         15 |          0 |          0 |         15 |
+| d:\Programing\java\FinalProject\demo\target\classes\thefinal\guipart\TheGUI.class                          | Java     |          5 |          0 |          1 |          6 |
+| d:\Programing\java\FinalProject\demo\target\classes\thefinal\guipart\TickAble.class                        | Java     |         -3 |          0 |          0 |         -3 |
+| Total                                                                                                      |          |        190 |         29 |         11 |        230 |
++------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

@@ -31,6 +31,9 @@ public class IntAreaListener extends InputNumArea {
     @Override
     public void focusGained(FocusEvent e) {
         // TODO Auto-generated method stub
+        if (textField.getText().isEmpty()) {
+            textField.setText("0");
+        }
 
     }
 

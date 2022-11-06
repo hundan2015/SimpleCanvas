@@ -30,14 +30,16 @@ public class DoubleAreaListener extends InputNumArea {
         if (textField.getText().isEmpty() == false) {
             InfoGUIUpdater.updateModel();
         }
-        
+
         // InfoGUIUpdater.updateGUI();
 
     }
 
     @Override
     public void focusGained(FocusEvent e) {
-        // TODO Auto-generated method stub
+        if (textField.getText().isEmpty()) {
+            textField.setText("0.0");
+        }
 
     }
 

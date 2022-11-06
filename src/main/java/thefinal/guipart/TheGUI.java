@@ -54,6 +54,7 @@ public class TheGUI {
         EditorGUI theEditor = new EditorGUI();
         theContainer.add(theEditor, c);
         // shit Panel part.
+        // TODO:select stage should be a single part.
         selectStage = new JPanel();
         selectStage.setBorder(BorderFactory.createTitledBorder("Pages"));
         c = new GridBagConstraints();

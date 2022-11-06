@@ -12,6 +12,7 @@ public class StageMouseListener implements MouseInputListener {
     int actionType = 0;
     StageObject stageObject;
     Point rootPoint;
+    ActorObject previousObject = null;
 
     public StageMouseListener(StageObject stageObject) {
         this.stageObject = stageObject;
@@ -19,8 +20,16 @@ public class StageMouseListener implements MouseInputListener {
 
     @Override
     public void mouseDragged(MouseEvent e) {
+
         stageObject.getActor(e.getPoint());
+        // Logic to deal with overlap problem.
+        // Without the code below, if a selected shape get across another shape having a
+        // higher level,then the control would be take over.
+        if (GlobalModel.currentActor != null && GlobalModel.currentActor != previousObject && previousObject != null) {
+            GlobalModel.setCurrentActor(previousObject);
+        }
         if (GlobalModel.getCurrentActor() != null) {
+            previousObject = GlobalModel.getCurrentActor();
             System.out.println("StageMouseListener::Get the actor");
             ActorObject temp = GlobalModel.getCurrentActor();
             // temp.transform.x = e.getPoint().x - 2;
@@ -54,6 +63,8 @@ public class StageMouseListener implements MouseInputListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        // GlobalModel.currentActor = null;
+        previousObject = null;
     }
 
     @Override

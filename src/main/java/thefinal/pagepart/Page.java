@@ -27,6 +27,7 @@ class Page extends JPanel {
         for (ShapeComponent shapeComponent : shapeArray) {
             shapeComponent.getShapeChanged();
             AffineTransform saveShit = theNewG.getTransform();
+
             // theNewG.translate(shapeComponent.lastX, shapeComponent.lastY);
             theNewG.transform(shapeComponent.getShapeTransform());
             theNewG.draw(shapeComponent.getShape());

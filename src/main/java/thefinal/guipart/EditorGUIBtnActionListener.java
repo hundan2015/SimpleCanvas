@@ -36,13 +36,11 @@ class EditorGUIBtnActionListener implements ActionListener {
                                         new ActorObject(new Line2D.Double(0, 0, 10, 10), new Point(10, 10),
                                                 new Point(10, 10)));
                         break;
+                    case 3:
+                        TextGUI yahoo = new TextGUI();
+                        yahoo.setVisible(true);
+                        break;
                 }
-                /*
-                 * GlobalModel.currentStage
-                 * .addActor(
-                 * new ActorObject(new Ellipse2D.Double(0, 0, 10, 10), new Point(10, 10),
-                 * new Point(10, 10)));
-                 */
                 GlobalModel.currentStage.repaint();
                 break;
             }
