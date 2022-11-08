@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import thefinal.GlobalModel;
+import thefinal.SceneSystem.StageObject;
+import thefinal.guipart.NumberInput.IntAreaListener;
 
 public class EditorGUI extends JPanel {
         JButton newPageBtn;
@@ -38,11 +39,26 @@ public class EditorGUI extends JPanel {
                 addNewComponent(newPageBtn,
                                 GridBagConstraints.NORTHEAST,
                                 0, 0, 1, 1);
+                newPageBtn.addActionListener(new ActionListener() {
+
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                                GlobalModel.addStageObject(new StageObject());
+                        }
+                });
                 // Delete page BTN
                 delPageBtn = new JButton("Delete Page");
                 addNewComponent(delPageBtn,
                                 GridBagConstraints.NORTHEAST,
                                 1, 0, 1, 1);
+                /* delPageBtn.addActionListener(new ActionListener() {
+
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                                GlobalModel.delCurrentStageObject();
+                        }
+
+                }); */
                 // Color Picker Btn
                 colorPickerBtn = new JButton("Pick Color");
                 EditorGUI self = this;
@@ -95,7 +111,7 @@ public class EditorGUI extends JPanel {
                 listener.bindTextField(heighTextField);
                 heighTextField.addKeyListener(listener);
                 heighTextField.setPreferredSize(new Dimension(40, 30));
-                addNewComponent(new JLabel("height"), GridBagConstraints.NORTHEAST,7, 0, 1, 1);
+                addNewComponent(new JLabel("height"), GridBagConstraints.NORTHEAST, 7, 0, 1, 1);
                 addNewComponent(heighTextField, GridBagConstraints.NORTHEAST, 8, 0, 1, 1);
 
         }
@@ -122,7 +138,7 @@ public class EditorGUI extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                         GlobalModel.shapeColor = JColorChooser.showDialog(colorPickerBtn, "Color Picker", Color.white);
                         colorPickerBtn.setBackground(GlobalModel.shapeColor);
-                        //thefuck.setBackground(GlobalModel.shapeColor);
+                        // thefuck.setBackground(GlobalModel.shapeColor);
                 }
         }
 }

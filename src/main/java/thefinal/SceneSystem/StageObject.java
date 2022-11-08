@@ -51,6 +51,7 @@ public class StageObject extends JPanel {
 
     @Override
     public void paint(Graphics g) {
+        super.paint(g);
         setBackground(Color.white);
         Graphics2D newG = (Graphics2D) g;
         newG.clearRect(0, 0, getWidth(), getHeight());

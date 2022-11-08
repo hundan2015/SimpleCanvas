@@ -93,4 +93,19 @@ public class ActorObject {
         // Fucking weird. Why the scale is after translate??
         return res;
     }
+
+    public AffineTransform getActorTransform(double smallscale) {
+        AffineTransform res = new AffineTransform();
+        res.translate(0, textShift * scale.y * smallscale);
+        res.translate(transform.x * smallscale
+                + size.x * scale.x * smallscale / 2, transform.y * smallscale + size.y * scale.y * smallscale / 2);
+        // Rotation transfer 1 degree = 57.3 degree
+        res.rotate(rotation / 57.3);
+        // To make sure the rotation does'nt change the shape's center.
+        // But it's also FUCKING WEIRD!!!!
+        res.translate(-size.x * scale.x * smallscale / 2, -size.y * scale.y * smallscale / 2);
+        res.scale(scale.x * smallscale, scale.y * smallscale);
+        // Fucking weird. Why the scale is after translate??
+        return res;
+    }
 }

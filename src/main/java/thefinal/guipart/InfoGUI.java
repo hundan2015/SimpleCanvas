@@ -13,11 +13,13 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import thefinal.GlobalModel;
+import thefinal.guipart.NumberInput.DoubleAreaListener;
+import thefinal.guipart.NumberInput.InputNumArea;
+import thefinal.guipart.NumberInput.IntAreaListener;
 
 public class InfoGUI extends JPanel {
     JTextField posX, posY, scaleX, scaleY, rotation;
@@ -45,11 +47,14 @@ public class InfoGUI extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 updateModel();
             }
-            
+
         });
         GridBagConstraints c1 = new GridBagConstraints();
         c1.gridx = 1;
         c1.gridy = 3;
+        filledBox.setBorderPainted(true);
+        filledBox.setPreferredSize(new Dimension(100, 50));
+        filledBox.setBorder(BorderFactory.createTitledBorder("Is Filled?"));
         add(filledBox, c1);
         // setPreferredSize(new Dimension(120, 500));
         setBorder(BorderFactory.createTitledBorder("Configure"));

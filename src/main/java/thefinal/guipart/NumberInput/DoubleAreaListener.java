@@ -1,11 +1,11 @@
-package thefinal.guipart;
+package thefinal.guipart.NumberInput;
 
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JTextField;
 
-import thefinal.GlobalModel;
+import thefinal.guipart.InfoGUIUpdater;
 
 public class DoubleAreaListener extends InputNumArea {
     JTextField textField;
