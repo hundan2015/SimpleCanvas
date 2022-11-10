@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
-import javax.swing.JList;
 
 import thefinal.SceneSystem.ActorObject;
 import thefinal.SceneSystem.StageObject;
@@ -18,6 +17,7 @@ public class GlobalModel {
     static public StageObject currentStage;
     static double shapeHeight;
     static public Color shapeColor;
+    // TODO: StageList should be a new component.
     public static ArrayList<StageObject> stageList;
     // A total failure design!!!!
     public static PageSelectPanel selectScenePanel;
@@ -29,22 +29,44 @@ public class GlobalModel {
         if (mainFrame != null) {
             mainFrame.add(stageObject, TheGUI.getStageContrast());
             mainFrame.repaint();
+            /**
+             * HACK: A Fucking bug of swing.
+             * When the scroll panel updated and it only get one smallport,
+             * if we need to add new stage, the scroll panel it self would get blank.
+             * But when the window get longer, the small port would display agian.
+             * So we use the main frame, and update its size, the pack it.
+             * Maybe it is a feature of mutithread system of swing,
+             * IT ALSO A PIECE OF FUCKING SHIT!!!
+             */
+            mainFrame.setSize(mainFrame.getWidth(), mainFrame.getHeight() + 1);
+            mainFrame.pack();
         }
-        if (selectScenePanel != null)
+        if (selectScenePanel != null) {
             selectScenePanel.updateList();
+            selectScenePanel.repaint();
+        }
 
     }
 
     public static void delCurrentStageObject() {
-        if (stageList.size() == 0) {
+        if (stageList.size() <= 1) {
             System.out.println("Del Stage failed.Must have one stage!");
+            return;
         }
         currentStage.setVisible(false);
         mainFrame.remove(currentStage);
         stageList.remove(currentStage);
         selectScenePanel.updateList();
+        /*
+         * selectScenePanel.getHorizontalScrollBar().repaint();
+         * JScrollBar bar = selectScenePanel.getHorizontalScrollBar();
+         * bar.setValue(bar.getMaximum());
+         */
+
         currentStage = stageList.get(0);
         currentStage.setVisible(true);
+        // mainFrame.repaint();
+
     }
 
     static public ActorObject getCurrentActor() {

@@ -35,7 +35,7 @@ public class TextGUI extends JFrame {
                     GlyphVector v = f.createGlyphVector(getFontMetrics(f).getFontRenderContext(), textField.getText());
                     Shape shape = v.getOutline();
                     Rectangle2D shit = shape.getBounds2D();
-                    
+
                     GlobalModel.currentStage.addActor(new ActorObject(shape, new Point(10, 10),
                             new Point((int) shit.getWidth(), (int) shit.getHeight()), shit.getHeight()));
                     dispose();
@@ -50,6 +50,9 @@ public class TextGUI extends JFrame {
     JButton submitBtn;
     JComboBox<String> fontSelecter;
 
+    /**
+     * TextGUI is a additional GUI to create new TEXT Actor object.
+     */
     TextGUI() {
         textField = new JTextField();
         GridBagLayout gridBagLayout = new GridBagLayout();

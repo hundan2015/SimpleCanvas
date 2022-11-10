@@ -2,7 +2,6 @@ package thefinal.guipart;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -12,13 +11,10 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import thefinal.GlobalModel;
 import thefinal.SceneSystem.StageObject;
-import thefinal.guipart.NumberInput.IntAreaListener;
 
 public class EditorGUI extends JPanel {
         JButton newPageBtn;
@@ -30,89 +26,48 @@ public class EditorGUI extends JPanel {
         JComboBox<String> theShapeSelector;
         GridBagLayout theLayout;
 
+        /**
+         * A set of panel to do something to the current stage.
+         */
         EditorGUI() {
                 setBorder(BorderFactory.createTitledBorder("ToolSet"));
                 theLayout = new GridBagLayout();
+                QuickConstraintFactory gridBagConstraintFactory = new QuickConstraintFactory();
                 setLayout(theLayout);
                 // New page BTN
                 newPageBtn = new JButton("New Page");
-                addNewComponent(newPageBtn,
-                                GridBagConstraints.NORTHEAST,
-                                0, 0, 1, 1);
-                newPageBtn.addActionListener(new ActionListener() {
+                newPageBtn.addActionListener(new NewPageActionListener());
+                add(newPageBtn, gridBagConstraintFactory.getConstraints(1));
 
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                                GlobalModel.addStageObject(new StageObject());
-                        }
-                });
                 // Delete page BTN
                 delPageBtn = new JButton("Delete Page");
-                addNewComponent(delPageBtn,
-                                GridBagConstraints.NORTHEAST,
-                                1, 0, 1, 1);
-                /* delPageBtn.addActionListener(new ActionListener() {
+                delPageBtn.addActionListener(new DelPageActionListener());
+                add(delPageBtn, gridBagConstraintFactory.getConstraints(1));
 
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                                GlobalModel.delCurrentStageObject();
-                        }
-
-                }); */
                 // Color Picker Btn
                 colorPickerBtn = new JButton("Pick Color");
-                EditorGUI self = this;
-
-                colorPickerBtn.addActionListener(
-                                new TempShit(self));
-
-                addNewComponent(colorPickerBtn,
-                                GridBagConstraints.NORTHEAST,
-                                2, 0, 1, 1);
+                colorPickerBtn.addActionListener(new ColorPickerActionListener(this));
+                add(colorPickerBtn, gridBagConstraintFactory.getConstraints(1));
 
                 EditorGUIBtnActionListener editorGUIBtnActionListener = new EditorGUIBtnActionListener();
                 // Create object BTN
                 createObjectBtn = new JButton("Create Shape");
                 createObjectBtn.setActionCommand("CREATEO");
                 createObjectBtn.addActionListener(editorGUIBtnActionListener);
-                addNewComponent(createObjectBtn,
-                                GridBagConstraints.NORTHEAST,
-                                3, 0, 1, 1);
+                add(createObjectBtn, gridBagConstraintFactory.getConstraints(1));
                 // Delete object BTN
                 delObjectBtn = new JButton("Del Shape");
                 delObjectBtn.setActionCommand("DELO");
                 delObjectBtn.addActionListener(editorGUIBtnActionListener);
-                addNewComponent(delObjectBtn,
-                                GridBagConstraints.NORTHEAST,
-                                4, 0, 1, 1);
+                add(delObjectBtn, gridBagConstraintFactory.getConstraints(1));
 
                 theShapeSelector = new JComboBox<String>();
                 theShapeSelector.addItem("Circle");
                 theShapeSelector.addItem("Square");
                 theShapeSelector.addItem("Line");
                 theShapeSelector.addItem("Text");
-
-                theShapeSelector.addActionListener(new ActionListener() {
-
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                                int shit = theShapeSelector.getSelectedIndex();
-                                GlobalModel.selectShape = shit;
-                        }
-
-                });
-                addNewComponent(theShapeSelector,
-                                GridBagConstraints.NORTHEAST,
-                                6, 0, 1, 1);
-
-                JTextField heighTextField = new JTextField();
-                heighTextField.setBorder(BorderFactory.createBevelBorder(1));
-                IntAreaListener listener = new IntAreaListener();
-                listener.bindTextField(heighTextField);
-                heighTextField.addKeyListener(listener);
-                heighTextField.setPreferredSize(new Dimension(40, 30));
-                addNewComponent(new JLabel("height"), GridBagConstraints.NORTHEAST, 7, 0, 1, 1);
-                addNewComponent(heighTextField, GridBagConstraints.NORTHEAST, 8, 0, 1, 1);
+                theShapeSelector.addActionListener(new shapeSelectActionListener());
+                add(theShapeSelector, gridBagConstraintFactory.getConstraints(1));
 
         }
 
@@ -127,10 +82,32 @@ public class EditorGUI extends JPanel {
                 add(component, c);
         }
 
-        class TempShit implements ActionListener {
+        private final class shapeSelectActionListener implements ActionListener {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                        int shit = theShapeSelector.getSelectedIndex();
+                        GlobalModel.selectShape = shit;
+                }
+        }
+
+        private final class DelPageActionListener implements ActionListener {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                        GlobalModel.delCurrentStageObject();
+                }
+        }
+
+        private final class NewPageActionListener implements ActionListener {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                        GlobalModel.addStageObject(new StageObject());
+                }
+        }
+
+        class ColorPickerActionListener implements ActionListener {
                 EditorGUI thefuck;
 
-                TempShit(EditorGUI theGui) {
+                ColorPickerActionListener(EditorGUI theGui) {
                         thefuck = theGui;
                 }
 

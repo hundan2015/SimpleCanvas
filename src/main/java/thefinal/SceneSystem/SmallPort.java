@@ -35,7 +35,6 @@ public class SmallPort extends JPanel {
             }
         };
         new Thread(ano).start();
-        ;
     }
 
     @Override

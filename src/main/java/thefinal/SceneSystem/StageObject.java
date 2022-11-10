@@ -27,6 +27,19 @@ public class StageObject extends JPanel {
         // test part
         addActor(new ActorObject(new Rectangle(10, 10), new Point(0, 0), new Point(10, 10)));
         // GlobalTick.registerComponent(this);
+        StageObject shit = this;
+        Runnable ano = () -> {
+            while (true) {
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                shit.repaint();
+            }
+        };
+        new Thread(ano).start();
     }
 
     public void addActor(ActorObject actor) {

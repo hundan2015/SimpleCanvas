@@ -1,13 +1,10 @@
 package thefinal.guipart;
 
-import java.awt.Component;
 import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
+
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -16,7 +13,6 @@ import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
 import thefinal.GlobalModel;
-import thefinal.SceneSystem.SmallPort;
 import thefinal.SceneSystem.StageObject;
 
 public class TheGUI {
@@ -92,7 +88,7 @@ public class TheGUI {
         c.gridx = 0;
         c.gridy = 10;
         c.fill = 2;
-        theContainer.add(new SmallPort(GlobalModel.stageList.get(0)), c);
+        //theContainer.add(new SmallPort(GlobalModel.stageList.get(0)), c);
         mainFrame.pack();
         mainFrame.setVisible(true);
     }

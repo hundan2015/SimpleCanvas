@@ -1,5 +1,6 @@
 package thefinal.guipart;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -12,6 +13,7 @@ import java.awt.event.KeyAdapter;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -26,6 +28,7 @@ public class InfoGUI extends JPanel {
     JButton updateBtn;
     JLabel objectName;
     JCheckBox filledBox;
+    Color shapeColor;
 
     InfoGUI() {
         setSize(100, 500);
@@ -59,6 +62,22 @@ public class InfoGUI extends JPanel {
         // setPreferredSize(new Dimension(120, 500));
         setBorder(BorderFactory.createTitledBorder("Configure"));
 
+        JButton colorButton = new JButton("set Color");
+        colorButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (GlobalModel.currentActor != null)
+                    GlobalModel.currentActor.color = JColorChooser.showDialog(colorButton, TOOL_TIP_TEXT_KEY,
+                            shapeColor);
+            }
+
+        });
+        c1 = new GridBagConstraints();
+        c1.gridx = 0;
+        c1.gridy = 4;
+        c1.weightx = 2;
+        add(colorButton, c1);
         InfoGUIUpdater.setInfoGUI(this);
     }
 
@@ -96,6 +115,7 @@ public class InfoGUI extends JPanel {
             scaleY.setText(Double.toString(GlobalModel.currentActor.scale.y));
             rotation.setText(Double.toString(GlobalModel.currentActor.rotation));
             filledBox.setSelected(GlobalModel.currentActor.isFilled);
+            // shapeColor = GlobalModel.currentActor.color;
         } else {
             posX.setText("0");
             posY.setText("0");
@@ -103,6 +123,7 @@ public class InfoGUI extends JPanel {
             scaleY.setText("0");
             rotation.setText("0");
             filledBox.setSelected(false);
+            shapeColor = Color.white;
         }
     }
 
@@ -114,6 +135,7 @@ public class InfoGUI extends JPanel {
             GlobalModel.currentActor.scale.y = Double.parseDouble(scaleY.getText());
             GlobalModel.currentActor.rotation = Double.parseDouble(rotation.getText());
             GlobalModel.currentActor.isFilled = filledBox.isSelected();
+            // GlobalModel.currentActor.color = shapeColor;
         }
         GlobalModel.currentStage.repaint();
     }
@@ -123,6 +145,7 @@ public class InfoGUI extends JPanel {
         updateModel();
         super.paint(graphics);
         updateGUI();
+        GlobalModel.mainFrame.pack();
     }
 
 }

@@ -8,6 +8,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.ScrollPaneLayout;
@@ -28,18 +29,13 @@ public class PageSelectPanel extends JScrollPane {
         GlobalModel.selectScenePanel = this;
         jPanel = new JPanel();
         jPanel.setLayout(new BoxLayout(jPanel, BoxLayout.Y_AXIS));
-        /*
-         * jPanel.add(new SmallPort(GlobalModel.stageList.get(0)));
-         * jPanel.add(new SmallPort(GlobalModel.stageList.get(0)));
-         * jPanel.add(new SmallPort(GlobalModel.stageList.get(0)));
-         * jPanel.add(new SmallPort(GlobalModel.stageList.get(0)));
-         */
-        
         setViewportView(jPanel);
     }
 
     public void updateList() {
+
         int sceneSize = GlobalModel.stageList.size();
+        jPanel.repaint();
         jPanel.removeAll();
         jPanel.setLayout(new BoxLayout(jPanel, BoxLayout.Y_AXIS));
         for (int i = 0; i < sceneSize; ++i) {
@@ -71,7 +67,10 @@ public class PageSelectPanel extends JScrollPane {
 
             });
             jPanel.add(smallPort);
+            jPanel.repaint();
         }
+        JScrollBar bar = getHorizontalScrollBar();
+        bar.setValue(bar.getMaximum());
         repaint();
     }
 }

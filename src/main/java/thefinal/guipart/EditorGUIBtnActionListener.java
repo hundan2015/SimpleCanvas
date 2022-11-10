@@ -37,8 +37,8 @@ class EditorGUIBtnActionListener implements ActionListener {
                                                 new Point(10, 10)));
                         break;
                     case 3:
-                        TextGUI yahoo = new TextGUI();
-                        yahoo.setVisible(true);
+                        TextGUI tempTextGUI = new TextGUI();
+                        tempTextGUI.setVisible(true);
                         break;
                 }
                 GlobalModel.currentStage.repaint();
