@@ -19,6 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import thefinal.GlobalModel;
+import thefinal.StageViewport;
+import thefinal.SceneSystem.ActorObject;
 import thefinal.guipart.NumberInput.DoubleAreaListener;
 import thefinal.guipart.NumberInput.InputNumArea;
 import thefinal.guipart.NumberInput.IntAreaListener;
@@ -67,9 +69,12 @@ public class InfoGUI extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (GlobalModel.currentActor != null)
-                    GlobalModel.currentActor.color = JColorChooser.showDialog(colorButton, TOOL_TIP_TEXT_KEY,
+                if (StageViewport.currentActor != null) {
+                    ActorObject shit = StageViewport.currentActor;
+                    shit.color = JColorChooser.showDialog(colorButton, TOOL_TIP_TEXT_KEY,
                             shapeColor);
+                }
+
             }
 
         });
@@ -108,13 +113,13 @@ public class InfoGUI extends JPanel {
 
     void updateGUI() {
         System.out.println("Updating");
-        if (GlobalModel.currentActor != null) {
-            posX.setText(Integer.toString(GlobalModel.currentActor.transform.x));
-            posY.setText(Integer.toString(GlobalModel.currentActor.transform.y));
-            scaleX.setText(Double.toString(GlobalModel.currentActor.scale.x));
-            scaleY.setText(Double.toString(GlobalModel.currentActor.scale.y));
-            rotation.setText(Double.toString(GlobalModel.currentActor.rotation));
-            filledBox.setSelected(GlobalModel.currentActor.isFilled);
+        if (StageViewport.currentActor != null) {
+            posX.setText(Integer.toString(StageViewport.currentActor.transform.x));
+            posY.setText(Integer.toString(StageViewport.currentActor.transform.y));
+            scaleX.setText(Double.toString(StageViewport.currentActor.scale.x));
+            scaleY.setText(Double.toString(StageViewport.currentActor.scale.y));
+            rotation.setText(Double.toString(StageViewport.currentActor.rotation));
+            filledBox.setSelected(StageViewport.currentActor.isFilled);
             // shapeColor = GlobalModel.currentActor.color;
         } else {
             posX.setText("0");
@@ -128,16 +133,17 @@ public class InfoGUI extends JPanel {
     }
 
     void updateModel() {
-        if (GlobalModel.currentActor != null) {
-            GlobalModel.currentActor.transform.x = Integer.parseInt(posX.getText());
-            GlobalModel.currentActor.transform.y = Integer.parseInt(posY.getText());
-            GlobalModel.currentActor.scale.x = Double.parseDouble(scaleX.getText());
-            GlobalModel.currentActor.scale.y = Double.parseDouble(scaleY.getText());
-            GlobalModel.currentActor.rotation = Double.parseDouble(rotation.getText());
-            GlobalModel.currentActor.isFilled = filledBox.isSelected();
+        if (StageViewport.currentActor != null) {
+            StageViewport.currentActor.transform.x = Integer.parseInt(posX.getText());
+            StageViewport.currentActor.transform.y = Integer.parseInt(posY.getText());
+            StageViewport.currentActor.scale.x = Double.parseDouble(scaleX.getText());
+            StageViewport.currentActor.scale.y = Double.parseDouble(scaleY.getText());
+            StageViewport.currentActor.rotation = Double.parseDouble(rotation.getText());
+            StageViewport.currentActor.isFilled = filledBox.isSelected();
             // GlobalModel.currentActor.color = shapeColor;
         }
-        GlobalModel.currentStage.repaint();
+        if (StageViewport.currentStage != null)
+            StageViewport.currentStage.repaint();
     }
 
     @Override

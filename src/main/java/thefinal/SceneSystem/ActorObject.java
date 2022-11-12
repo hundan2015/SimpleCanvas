@@ -16,6 +16,8 @@ public class ActorObject {
     public double textShift = 0;
     public Color color;
     public boolean isFilled = false;
+    public String text = "";
+    public String font = "";
 
     /**
      * @param shape     The shape to render.
@@ -28,6 +30,19 @@ public class ActorObject {
      */
     public ActorObject(Shape shape, Point transform, Point size) {
         createObject(shape, transform, size);
+        this.text = null;
+    }
+
+    public ActorObject(Shape shape, Point transfrom, Point size, Point.Double scale, double rotation, double textShift,
+            String text, String font, Color color, boolean isFilled) {
+        createObject(shape, transfrom, size);
+        this.scale = scale;
+        this.rotation = rotation;
+        this.textShift = textShift;
+        this.text = text;
+        this.font = font;
+        this.color = color;
+        this.isFilled = isFilled;
     }
 
     private void createObject(Shape shape, Point transform, Point size) {
@@ -37,12 +52,20 @@ public class ActorObject {
         this.scale = new Point.Double(1, 1);
         rotation = 0;
         textShift = 0;
-        color = GlobalModel.shapeColor;
+        // Trap!
+        if (GlobalModel.shapeColor != null) {
+            color = new Color(GlobalModel.shapeColor.getRGB());
+        } else {
+            color = Color.black;
+        }
+
     }
 
-    public ActorObject(Shape shape, Point transform, Point size, double shift) {
+    public ActorObject(Shape shape, Point transform, Point size, double shift, String text, String font) {
         createObject(shape, transform, size);
         textShift = shift;
+        this.text = text;
+        this.font = font;
     }
 
     public Shape getShape() {
@@ -80,20 +103,16 @@ public class ActorObject {
      *         correctly.
      */
     public AffineTransform getActorTransform() {
-        AffineTransform res = new AffineTransform();
-        res.translate(0, textShift * scale.y);
-        res.translate(transform.x
-                + size.x * scale.x / 2, transform.y + size.y * scale.y / 2);
-        // Rotation transfer 1 degree = 57.3 degree
-        res.rotate(rotation / 57.3);
-        // To make sure the rotation does'nt change the shape's center.
-        // But it's also FUCKING WEIRD!!!!
-        res.translate(-size.x * scale.x / 2, -size.y * scale.y / 2);
-        res.scale(scale.x, scale.y);
-        // Fucking weird. Why the scale is after translate??
-        return res;
+        return getActorTransform(1);
     }
 
+    /**
+     * A transform get method for small port
+     * 
+     * @param smallscale
+     * @return The position(including rotation) for the Graphic2D to paint shape
+     *         correctly.
+     */
     public AffineTransform getActorTransform(double smallscale) {
         AffineTransform res = new AffineTransform();
         res.translate(0, textShift * scale.y * smallscale);
@@ -108,4 +127,10 @@ public class ActorObject {
         // Fucking weird. Why the scale is after translate??
         return res;
     }
+
+    static boolean isEqual(ActorObject actorObject) {
+
+        return false;
+    }
+
 }

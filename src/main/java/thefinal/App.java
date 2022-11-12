@@ -1,5 +1,6 @@
 package thefinal;
 
+import thefinal.SceneSystem.SequenceGenerator;
 import thefinal.guipart.TheGUI;
 
 /**
@@ -15,5 +16,6 @@ public class App {
         theGUI.InitGUI();
         // tickThread.run();
         System.out.println("Hello World!");
+        System.out.println(SequenceGenerator.getFileJSON().toJSONString());
     }
 }

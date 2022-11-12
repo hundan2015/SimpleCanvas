@@ -8,6 +8,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 
 import thefinal.GlobalModel;
+import thefinal.StageViewport;
 import thefinal.SceneSystem.ActorObject;
 
 class EditorGUIBtnActionListener implements ActionListener {
@@ -19,19 +20,19 @@ class EditorGUIBtnActionListener implements ActionListener {
                 System.out.println("Create Object");
                 switch (GlobalModel.selectShape) {
                     case 0:
-                        GlobalModel.currentStage
+                        StageViewport.currentStage
                                 .addActor(
                                         new ActorObject(new Ellipse2D.Double(0, 0, 10, 10), new Point(10, 10),
                                                 new Point(10, 10)));
                         break;
                     case 1:
-                        GlobalModel.currentStage
+                        StageViewport.currentStage
                                 .addActor(
                                         new ActorObject(new Rectangle.Double(0, 0, 10, 10), new Point(10, 10),
                                                 new Point(10, 10)));
                         break;
                     case 2:
-                        GlobalModel.currentStage
+                        StageViewport.currentStage
                                 .addActor(
                                         new ActorObject(new Line2D.Double(0, 0, 10, 10), new Point(10, 10),
                                                 new Point(10, 10)));
@@ -41,13 +42,13 @@ class EditorGUIBtnActionListener implements ActionListener {
                         tempTextGUI.setVisible(true);
                         break;
                 }
-                GlobalModel.currentStage.repaint();
+                StageViewport.currentStage.repaint();
                 break;
             }
             case "DELO": {
                 System.out.println("Delete Object");
-                GlobalModel.currentStage.removeCurrentActor();
-                GlobalModel.currentStage.repaint();
+                StageViewport.currentStage.removeCurrentActor();
+                StageViewport.currentStage.repaint();
                 break;
             }
         }

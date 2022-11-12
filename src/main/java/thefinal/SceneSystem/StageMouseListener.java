@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.event.MouseInputListener;
 
 import thefinal.GlobalModel;
+import thefinal.StageViewport;
 import thefinal.guipart.InfoGUIUpdater;
 
 public class StageMouseListener implements MouseInputListener {
@@ -25,7 +26,7 @@ public class StageMouseListener implements MouseInputListener {
         // Logic to deal with overlap problem.
         // Without the code below, if a selected shape get across another shape having a
         // higher level,then the control would be take over.
-        if (GlobalModel.currentActor != null && GlobalModel.currentActor != previousObject && previousObject != null) {
+        if (StageViewport.currentActor != null && StageViewport.currentActor != previousObject && previousObject != null) {
             GlobalModel.setCurrentActor(previousObject);
         }
         if (GlobalModel.getCurrentActor() != null) {

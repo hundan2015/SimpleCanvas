@@ -4,8 +4,11 @@ import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -13,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
 import thefinal.GlobalModel;
+import thefinal.SceneSystem.CanvasFileSystem;
 import thefinal.SceneSystem.StageObject;
 
 public class TheGUI {
@@ -30,6 +34,32 @@ public class TheGUI {
         Container theContainer = mainFrame.getContentPane();
         mainFrame.setSize(800, 600);
         mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        JMenuBar menuBar = new JMenuBar();
+        JMenu fileMenu = new JMenu("File");
+        JMenuItem saveBtn = new JMenuItem("save");
+        saveBtn.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CanvasFileSystem.saveFile();
+            }
+
+        });
+        JMenuItem loadBtn = new JMenuItem("load");
+        loadBtn.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CanvasFileSystem.loadFile();
+            }
+
+        });
+        fileMenu.add(saveBtn);
+        fileMenu.add(loadBtn);
+        menuBar.add(fileMenu);
+        mainFrame.setJMenuBar(menuBar);
+
         theLayout = new GridBagLayout();
         theContainer.setLayout(theLayout);
 
@@ -88,7 +118,7 @@ public class TheGUI {
         c.gridx = 0;
         c.gridy = 10;
         c.fill = 2;
-        //theContainer.add(new SmallPort(GlobalModel.stageList.get(0)), c);
+        // theContainer.add(new SmallPort(GlobalModel.stageList.get(0)), c);
         mainFrame.pack();
         mainFrame.setVisible(true);
     }

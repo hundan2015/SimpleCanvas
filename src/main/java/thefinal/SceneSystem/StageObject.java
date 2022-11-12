@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import thefinal.GlobalModel;
+import thefinal.StageViewport;
 
 public class StageObject extends JPanel {
     public ArrayList<ActorObject> actorList;
@@ -25,7 +26,8 @@ public class StageObject extends JPanel {
         addMouseMotionListener(listener);
 
         // test part
-        addActor(new ActorObject(new Rectangle(10, 10), new Point(0, 0), new Point(10, 10)));
+        // addActor(new ActorObject(new Rectangle(10, 10), new Point(0, 0), new
+        // Point(10, 10)));
         // GlobalTick.registerComponent(this);
         StageObject shit = this;
         Runnable ano = () -> {
@@ -49,16 +51,16 @@ public class StageObject extends JPanel {
 
     public void removeActor(Point mousePositon) {
         getActor(mousePositon);
-        if (GlobalModel.currentActor != null) {
-            actorList.remove(GlobalModel.currentActor);
-            GlobalModel.currentActor = null;
+        if (StageViewport.currentActor != null) {
+            actorList.remove(StageViewport.currentActor);
+            StageViewport.currentActor = null;
         }
     }
 
     public void removeCurrentActor() {
-        if (GlobalModel.currentActor != null) {
-            actorList.remove(GlobalModel.currentActor);
-            GlobalModel.currentActor = null;
+        if (StageViewport.currentActor != null) {
+            actorList.remove(StageViewport.currentActor);
+            StageViewport.currentActor = null;
         }
     }
 

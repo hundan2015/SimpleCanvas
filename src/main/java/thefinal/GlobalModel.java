@@ -13,15 +13,18 @@ import thefinal.guipart.TheGUI;
 public class GlobalModel {
     static public int selectShape;
     static public JFrame mainFrame;
-    static public ActorObject currentActor;
-    static public StageObject currentStage;
     static double shapeHeight;
     static public Color shapeColor;
-    // TODO: StageList should be a new component.
     public static ArrayList<StageObject> stageList;
     // A total failure design!!!!
     public static PageSelectPanel selectScenePanel;
 
+    public static void clearStageList() {
+        stageList = new ArrayList<>();
+        selectScenePanel.updateList();
+    }
+
+    // TODO: 需要分离大量的数据，整理当前点，不然无法改读取的BUG
     public static void addStageObject(StageObject stageObject) {
         // ArrayList<ViewConstract> tList = ViewMaintainer.preToUpdateView(stageObject);
         stageList.add(stageObject);
@@ -43,7 +46,7 @@ public class GlobalModel {
         }
         if (selectScenePanel != null) {
             selectScenePanel.updateList();
-            selectScenePanel.repaint();
+            // selectScenePanel.repaint();
         }
 
     }
@@ -53,9 +56,9 @@ public class GlobalModel {
             System.out.println("Del Stage failed.Must have one stage!");
             return;
         }
-        currentStage.setVisible(false);
-        mainFrame.remove(currentStage);
-        stageList.remove(currentStage);
+        StageViewport.currentStage.setVisible(false);
+        mainFrame.remove(StageViewport.currentStage);
+        stageList.remove(StageViewport.currentStage);
         selectScenePanel.updateList();
         /*
          * selectScenePanel.getHorizontalScrollBar().repaint();
@@ -63,28 +66,28 @@ public class GlobalModel {
          * bar.setValue(bar.getMaximum());
          */
 
-        currentStage = stageList.get(0);
-        currentStage.setVisible(true);
+        StageViewport.currentStage = stageList.get(0);
+        StageViewport.currentStage.setVisible(true);
         // mainFrame.repaint();
 
     }
 
     static public ActorObject getCurrentActor() {
-        return currentActor;
+        return StageViewport.currentActor;
     }
 
     static public void setCurrentActor(ActorObject currentActor) {
-        GlobalModel.currentActor = currentActor;
+        StageViewport.currentActor = currentActor;
     }
 
     /**
      * 当前Page所选中的Actor。这个玩意应该是单例的。全局应该只有一个当前Actor。
      */
     static void initGlobalModel() {
-        GlobalModel.currentActor = null;
+        StageViewport.currentActor = null;
         stageList = new ArrayList<>();
         addStageObject(new StageObject());
-        currentStage = stageList.get(0);
+        StageViewport.currentStage = stageList.get(0);
         selectShape = 0;
     }
 }

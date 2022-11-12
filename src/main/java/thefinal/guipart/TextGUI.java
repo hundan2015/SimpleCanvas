@@ -17,7 +17,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
-import thefinal.GlobalModel;
+import thefinal.StageViewport;
 import thefinal.SceneSystem.ActorObject;
 
 public class TextGUI extends JFrame {
@@ -32,12 +32,14 @@ public class TextGUI extends JFrame {
                 case "S": {
 
                     Font f = new Font("Microsoft Yahei", Font.BOLD, 30);
-                    GlyphVector v = f.createGlyphVector(getFontMetrics(f).getFontRenderContext(), textField.getText());
+                    String text = textField.getText();
+                    GlyphVector v = f.createGlyphVector(getFontMetrics(f).getFontRenderContext(), text);
                     Shape shape = v.getOutline();
                     Rectangle2D shit = shape.getBounds2D();
 
-                    GlobalModel.currentStage.addActor(new ActorObject(shape, new Point(10, 10),
-                            new Point((int) shit.getWidth(), (int) shit.getHeight()), shit.getHeight()));
+                    StageViewport.currentStage.addActor(new ActorObject(shape, new Point(10, 10),
+                            new Point((int) shit.getWidth(), (int) shit.getHeight()), shit.getHeight(), text,
+                            "Microsoft Yahei"));
                     dispose();
                     break;
                 }

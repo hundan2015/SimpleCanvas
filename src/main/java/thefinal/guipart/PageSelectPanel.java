@@ -14,9 +14,42 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.ScrollPaneLayout;
 
 import thefinal.GlobalModel;
+import thefinal.StageViewport;
 import thefinal.SceneSystem.SmallPort;
 
 public class PageSelectPanel extends JScrollPane {
+    private final class SmallPortMouseListenerImplementation implements MouseListener {
+        private final SmallPort smallPort;
+
+        private SmallPortMouseListenerImplementation(SmallPort smallPort) {
+            this.smallPort = smallPort;
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (StageViewport.currentStage != null)
+                StageViewport.currentStage.setVisible(false);
+            StageViewport.currentStage = smallPort.getTarget();
+            StageViewport.currentStage.setVisible(true);
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+        }
+    }
+
     // need to bind button to the stage.
     JPanel jPanel;
 
@@ -33,39 +66,13 @@ public class PageSelectPanel extends JScrollPane {
     }
 
     public void updateList() {
-
         int sceneSize = GlobalModel.stageList.size();
         jPanel.repaint();
         jPanel.removeAll();
         jPanel.setLayout(new BoxLayout(jPanel, BoxLayout.Y_AXIS));
         for (int i = 0; i < sceneSize; ++i) {
             SmallPort smallPort = new SmallPort(GlobalModel.stageList.get(i));
-            smallPort.addMouseListener(new MouseListener() {
-
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    GlobalModel.currentStage.setVisible(false);
-                    GlobalModel.currentStage = smallPort.getTarget();
-                    GlobalModel.currentStage.setVisible(true);
-                }
-
-                @Override
-                public void mousePressed(MouseEvent e) {
-                }
-
-                @Override
-                public void mouseReleased(MouseEvent e) {
-                }
-
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                }
-
-                @Override
-                public void mouseExited(MouseEvent e) {
-                }
-
-            });
+            smallPort.addMouseListener(new SmallPortMouseListenerImplementation(smallPort));
             jPanel.add(smallPort);
             jPanel.repaint();
         }
