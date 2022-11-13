@@ -2,6 +2,9 @@ package thefinal.SceneSystem;
 
 import java.awt.Point;
 import java.awt.event.MouseEvent;
+import java.awt.geom.GeneralPath;
+import java.util.ArrayList;
+
 import javax.swing.event.MouseInputListener;
 
 import thefinal.GlobalModel;
@@ -9,6 +12,8 @@ import thefinal.StageViewport;
 import thefinal.guipart.InfoGUIUpdater;
 
 public class StageMouseListener implements MouseInputListener {
+    GeneralPath tempPath = new GeneralPath();
+    ArrayList<Point> pathPoints = new ArrayList<>();
 
     int actionType = 0;
     StageObject stageObject;
@@ -21,12 +26,21 @@ public class StageMouseListener implements MouseInputListener {
 
     @Override
     public void mouseDragged(MouseEvent e) {
+        if (!GlobalModel.pathMode) {
+            moveMethod(e);
+        } else {
+            
+        }
 
+    }
+
+    private void moveMethod(MouseEvent e) {
         stageObject.getActor(e.getPoint());
         // Logic to deal with overlap problem.
         // Without the code below, if a selected shape get across another shape having a
         // higher level,then the control would be take over.
-        if (StageViewport.currentActor != null && StageViewport.currentActor != previousObject && previousObject != null) {
+        if (StageViewport.currentActor != null && StageViewport.currentActor != previousObject
+                && previousObject != null) {
             GlobalModel.setCurrentActor(previousObject);
         }
         if (GlobalModel.getCurrentActor() != null) {
@@ -42,7 +56,6 @@ public class StageMouseListener implements MouseInputListener {
             actionType = 0;
         }
         // InfoGUIUpdater.updateModel();
-        // TODO:repaint part
         stageObject.repaint();
         InfoGUIUpdater.updateGUI();
     }

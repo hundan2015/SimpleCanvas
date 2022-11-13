@@ -8,13 +8,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import thefinal.GlobalModel;
 import thefinal.StageViewport;
 
 public class CanvasFileSystem {
-    static File currentFile = new File("./shit.txt");
+    static File currentFile = new File("./shit.canvas");
 
     public static void saveFile() {
+        saveFilePanel();
+        if (currentFile == null)
+            return;
         FileWriter fileWriter;
         if (currentFile == null) {
             // TODO:Open a select file menu.
@@ -37,18 +43,9 @@ public class CanvasFileSystem {
     }
 
     public static void loadFile() {
-        /*
-         * FileReader fileReader;
-         * if (currentFile == null) {
-         * // TODO:Open a select file menu.
-         * }
-         * try {
-         * fileReader = new FileReader(currentFile);
-         * } catch (FileNotFoundException e) {
-         * e.printStackTrace();
-         * fileReader = null;
-         * }
-         */
+        openFilePanel();
+        if (currentFile == null)
+            return;
         Scanner sc;
         try {
             sc = new Scanner(currentFile);
@@ -70,5 +67,40 @@ public class CanvasFileSystem {
         }
 
         sc.close();
+    }
+
+    static void openFilePanel() {
+        JFileChooser jFileChooser = new JFileChooser();
+        jFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        jFileChooser.setCurrentDirectory(new File("."));
+        jFileChooser.setFileFilter(new FileNameExtensionFilter("Canvas File", "canvas"));
+        int result = jFileChooser.showOpenDialog(jFileChooser);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            currentFile = jFileChooser.getSelectedFile();
+        } else {
+            currentFile = null;
+        }
+    }
+
+    static void saveFilePanel() {
+        JFileChooser jFileChooser = new JFileChooser();
+        jFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        jFileChooser.setCurrentDirectory(new File("."));
+        jFileChooser.setFileFilter(new FileNameExtensionFilter("Canvas File", "canvas"));
+        int result = jFileChooser.showSaveDialog(jFileChooser);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            currentFile = jFileChooser.getSelectedFile();
+            // tried to make it canvas but failed!
+            if (currentFile.getName().indexOf(".canvas") == -1) {
+                String path = currentFile.getPath();
+                if (currentFile.renameTo(new File(path + ".canvas"))) {
+                    System.out.println(path);
+                }
+            }
+        } else {
+            currentFile = null;
+        }
     }
 }

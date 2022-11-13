@@ -18,6 +18,7 @@ public class GlobalModel {
     public static ArrayList<StageObject> stageList;
     // A total failure design!!!!
     public static PageSelectPanel selectScenePanel;
+    public static boolean pathMode = false;
 
     public static void clearStageList() {
         stageList = new ArrayList<>();
