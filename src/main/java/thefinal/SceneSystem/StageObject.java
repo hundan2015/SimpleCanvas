@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import thefinal.GlobalModel;
 import thefinal.StageViewport;
+import thefinal.guipart.ActorListGUI;
 
 public class StageObject extends JPanel {
     public ArrayList<ActorObject> actorList;
@@ -47,6 +48,8 @@ public class StageObject extends JPanel {
     public void addActor(ActorObject actor) {
         // actorList.add(actor);
         actorList.add(0, actor);
+        // update list part
+        ActorListGUI.update();
     }
 
     public void removeActor(Point mousePositon) {
@@ -55,6 +58,8 @@ public class StageObject extends JPanel {
             actorList.remove(StageViewport.currentActor);
             StageViewport.currentActor = null;
         }
+        // update list part
+        ActorListGUI.update();
     }
 
     public void removeCurrentActor() {
@@ -62,6 +67,8 @@ public class StageObject extends JPanel {
             actorList.remove(StageViewport.currentActor);
             StageViewport.currentActor = null;
         }
+        // update list part
+        ActorListGUI.update();
     }
 
     @Override
@@ -71,6 +78,9 @@ public class StageObject extends JPanel {
         Graphics2D newG = (Graphics2D) g;
         newG.clearRect(0, 0, getWidth(), getHeight());
         AffineTransform tempTransform = newG.getTransform();
+        if (GlobalModel.tempPath != null) {
+            newG.draw(GlobalModel.tempPath);
+        }
         for (ActorObject actorObject : actorList) {
             newG.setColor(actorObject.color);
             newG.transform(actorObject.getActorTransform());

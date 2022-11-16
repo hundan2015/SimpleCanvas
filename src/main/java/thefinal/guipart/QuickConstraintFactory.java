@@ -23,14 +23,14 @@ public class QuickConstraintFactory {
         rowMat.add(0);
     }
 
-    void forwardRow() {
+    public void nextRow() {
         rowCount++;
         if (rowMat.size() == rowCount) {
             rowMat.add(0);
         }
     }
 
-    void backwardRow() {
+    public void previousRow() {
         rowCount--;
     }
 

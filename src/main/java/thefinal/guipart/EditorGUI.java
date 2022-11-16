@@ -19,6 +19,7 @@ import thefinal.SceneSystem.StageObject;
 public class EditorGUI extends JPanel {
         JButton newPageBtn;
         JButton delPageBtn;
+        JButton paintPathBtn;
         JButton colorPickerBtn;
         JButton createObjectBtn;
         JButton delObjectBtn;
@@ -43,6 +44,18 @@ public class EditorGUI extends JPanel {
                 delPageBtn = new JButton("Delete Page");
                 delPageBtn.addActionListener(new DelPageActionListener());
                 add(delPageBtn, gridBagConstraintFactory.getConstraints(1));
+
+                // Paint path BTN
+                paintPathBtn = new JButton("Paint Path");
+                paintPathBtn.addActionListener(new ActionListener() {
+
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                                GlobalModel.pathMode = true;
+                        }
+
+                });
+                add(paintPathBtn, gridBagConstraintFactory.getConstraints(1));
 
                 // Color Picker Btn
                 colorPickerBtn = new JButton("Pick Color");

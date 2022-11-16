@@ -58,6 +58,18 @@ public class TheGUI {
         fileMenu.add(saveBtn);
         fileMenu.add(loadBtn);
         menuBar.add(fileMenu);
+        JMenu windowMenu = new JMenu("Windows");
+        JMenuItem selectItem = new JMenuItem("Actor List Menu");
+        selectItem.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ActorListGUI.initActorListGUI();
+            }
+
+        });
+        windowMenu.add(selectItem);
+        menuBar.add(windowMenu);
         mainFrame.setJMenuBar(menuBar);
 
         theLayout = new GridBagLayout();
@@ -121,6 +133,7 @@ public class TheGUI {
         // theContainer.add(new SmallPort(GlobalModel.stageList.get(0)), c);
         mainFrame.pack();
         mainFrame.setVisible(true);
+        // ActorListGUI.initActorListGUI();
     }
 
     public static GridBagConstraints getStageContrast() {

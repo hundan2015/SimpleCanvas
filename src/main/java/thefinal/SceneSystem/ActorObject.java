@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
+import java.util.ArrayList;
 
 import thefinal.GlobalModel;
 
@@ -18,6 +19,16 @@ public class ActorObject {
     public boolean isFilled = false;
     public String text = "";
     public String font = "";
+    public ArrayList<Point> pathPoint = null;
+    public String name;
+
+    @Override
+    public String toString() {
+        if (name != null)
+            return this.name;
+        else
+            return "";
+    }
 
     /**
      * @param shape     The shape to render.
@@ -33,8 +44,22 @@ public class ActorObject {
         this.text = null;
     }
 
+    /**
+     * A method to make a path shape.
+     * 
+     * @param shape
+     * @param transfrom
+     * @param size
+     * @param pathList
+     */
+    public ActorObject(Shape shape, Point transfrom, Point size, ArrayList<Point> pathList) {
+        createObject(shape, transfrom, size);
+        this.text = null;
+        this.pathPoint = pathList;
+    }
+
     public ActorObject(Shape shape, Point transfrom, Point size, Point.Double scale, double rotation, double textShift,
-            String text, String font, Color color, boolean isFilled) {
+            String text, String font, Color color, boolean isFilled, ArrayList<Point> points, String name) {
         createObject(shape, transfrom, size);
         this.scale = scale;
         this.rotation = rotation;
@@ -43,6 +68,8 @@ public class ActorObject {
         this.font = font;
         this.color = color;
         this.isFilled = isFilled;
+        this.pathPoint = points;
+        this.name = name;
     }
 
     private void createObject(Shape shape, Point transform, Point size) {
@@ -58,7 +85,7 @@ public class ActorObject {
         } else {
             color = Color.black;
         }
-
+        this.name = shape.getClass().toString();
     }
 
     public ActorObject(Shape shape, Point transform, Point size, double shift, String text, String font) {

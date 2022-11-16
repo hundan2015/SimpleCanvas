@@ -1,12 +1,14 @@
 package thefinal;
 
 import java.awt.Color;
+import java.awt.geom.GeneralPath;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
 import thefinal.SceneSystem.ActorObject;
 import thefinal.SceneSystem.StageObject;
+import thefinal.guipart.InfoGUIUpdater;
 import thefinal.guipart.PageSelectPanel;
 import thefinal.guipart.TheGUI;
 
@@ -79,6 +81,7 @@ public class GlobalModel {
 
     static public void setCurrentActor(ActorObject currentActor) {
         StageViewport.currentActor = currentActor;
+        InfoGUIUpdater.updateGUI();
     }
 
     /**
@@ -91,4 +94,6 @@ public class GlobalModel {
         StageViewport.currentStage = stageList.get(0);
         selectShape = 0;
     }
+
+    public static GeneralPath tempPath = null;
 }

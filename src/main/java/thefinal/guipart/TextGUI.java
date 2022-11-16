@@ -62,7 +62,7 @@ public class TextGUI extends JFrame {
         setLayout(gridBagLayout);
         fontSelecter = new JComboBox<String>();
         GridBagConstraints c = qFac.getConstraints(2);
-        qFac.forwardRow();
+        qFac.nextRow();
         fontSelecter.addItem("Song");
         fontSelecter.addItem("Ya Hei");
         add(fontSelecter);
@@ -79,7 +79,7 @@ public class TextGUI extends JFrame {
         submitBtn.setActionCommand("S");
         submitBtn.addActionListener(textGUIActionListener);
 
-        qFac.forwardRow();
+        qFac.nextRow();
         c = qFac.getConstraints(1);
         add(canncelBtn, c);
         c = qFac.getConstraints(1);

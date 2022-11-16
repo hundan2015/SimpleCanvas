@@ -2,6 +2,7 @@ package thefinal.SceneSystem;
 
 import java.awt.Point;
 import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
 import java.util.ArrayList;
 
@@ -12,9 +13,8 @@ import thefinal.StageViewport;
 import thefinal.guipart.InfoGUIUpdater;
 
 public class StageMouseListener implements MouseInputListener {
-    GeneralPath tempPath = new GeneralPath();
-    ArrayList<Point> pathPoints = new ArrayList<>();
-
+    boolean firstPoint = true;
+    ArrayList<Point> shitList = new ArrayList<>();
     int actionType = 0;
     StageObject stageObject;
     Point rootPoint;
@@ -29,9 +29,15 @@ public class StageMouseListener implements MouseInputListener {
         if (!GlobalModel.pathMode) {
             moveMethod(e);
         } else {
-            
+            shitList.add(e.getPoint());
+            if (firstPoint) {
+                GlobalModel.tempPath = new GeneralPath();
+                GlobalModel.tempPath.moveTo(e.getX(), e.getY());
+                firstPoint = false;
+            } else {
+                GlobalModel.tempPath.lineTo(e.getX(), e.getY());
+            }
         }
-
     }
 
     private void moveMethod(MouseEvent e) {
@@ -79,6 +85,28 @@ public class StageMouseListener implements MouseInputListener {
     public void mouseReleased(MouseEvent e) {
         // GlobalModel.currentActor = null;
         previousObject = null;
+        GlobalModel.pathMode = false;
+
+        if (GlobalModel.tempPath != null) {
+            AffineTransform shiftTrans = new AffineTransform();
+            shiftTrans.translate(-GlobalModel.tempPath
+                    .getBounds2D().getMinX(),
+                    -GlobalModel.tempPath
+                            .getBounds2D()
+                            .getMinY());
+            StageViewport.currentStage.addActor(new ActorObject(GlobalModel.tempPath.createTransformedShape(shiftTrans),
+                    new Point((int) GlobalModel.tempPath
+                            .getBounds2D().getMinX(),
+                            (int) GlobalModel.tempPath
+                                    .getBounds2D()
+                                    .getMinY()),
+                    new Point((int) GlobalModel.tempPath.getBounds2D().getMinX(),
+                            (int) GlobalModel.tempPath.getBounds2D().getMinY()),
+                    shitList));
+        }
+        shitList = new ArrayList<>();
+        GlobalModel.tempPath = null;
+        firstPoint = true;
     }
 
     @Override

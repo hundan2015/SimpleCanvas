@@ -31,6 +31,8 @@ public class PageSelectPanel extends JScrollPane {
                 StageViewport.currentStage.setVisible(false);
             StageViewport.currentStage = smallPort.getTarget();
             StageViewport.currentStage.setVisible(true);
+            ActorListGUI.update();
+            GlobalModel.setCurrentActor(null);
         }
 
         @Override

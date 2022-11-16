@@ -6,7 +6,9 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.font.GlyphVector;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -33,7 +35,6 @@ public class SequenceGenerator {
         return res;
     }
 
-    // FIXME:Actor的序列化有很大的问题！
     static JSONObject getActorJson(ActorObject actorObject) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("shape", actorObject.getShape().getClass().toString());
@@ -49,6 +50,20 @@ public class SequenceGenerator {
         jsonObject.put("R", actorObject.color.getRed());
         jsonObject.put("G", actorObject.color.getGreen());
         jsonObject.put("B", actorObject.color.getBlue());
+        ArrayList<Integer> xpath = new ArrayList<>();
+        ArrayList<Integer> ypath = new ArrayList<>();
+        if (actorObject.pathPoint != null) {
+            for (Point point : actorObject.pathPoint) {
+                xpath.add((int) point.getX());
+                ypath.add((int) point.getY());
+            }
+        }
+        jsonObject.put("pathxlist", xpath);
+        jsonObject.put("pathylist", ypath);
+        if (actorObject.name == null) {
+            actorObject.name = actorObject.getShape().getClass().toString();
+        }
+        jsonObject.put("name", actorObject.name);
         return jsonObject;
     }
 
@@ -66,15 +81,32 @@ public class SequenceGenerator {
         int G = object.getIntValue("G");
         int B = object.getIntValue("B");
         boolean isFilled = object.getBooleanValue("isFilled");
-        Shape shape = getShapeType(shapeType, text);
+        JSONArray pathXList = object.getJSONArray("pathxlist");
+        JSONArray pathYList = object.getJSONArray("pathylist");
+        String name = object.getString("name");
+        Shape shape = getShapeType(shapeType, text, pathXList, pathYList);
         Rectangle2D shit = shape.getBounds2D();
+        ArrayList<Point> points = new ArrayList<>();
+        if (pathXList != null && pathYList != null) {
+            int size = Math.min(pathXList.size(), pathYList.size());
+            for (int i = 0; i < size; ++i) {
+                points.add(new Point(pathXList.getIntValue(i), pathYList.getIntValue(i)));
+            }
+
+            ActorObject res = new ActorObject(shape, new Point(posX, posY), new Point((int) shit.getWidth(), (int) shit
+                    .getHeight()),
+                    new Point.Double(scaleX, scaleY), rotation, textShift, text, font, new Color(R, G, B), isFilled,
+                    points, name);
+            return res;
+        }
         ActorObject res = new ActorObject(shape, new Point(posX, posY), new Point((int) shit.getWidth(), (int) shit
                 .getHeight()),
-                new Point.Double(scaleX, scaleY), rotation, textShift, text, font, new Color(R, G, B), isFilled);
+                new Point.Double(scaleX, scaleY), rotation, textShift, text, font, new Color(R, G, B), isFilled,
+                points, name);
         return res;
     }
 
-    private static Shape getShapeType(String shapeType, String text) {
+    private static Shape getShapeType(String shapeType, String text, JSONArray pathxlist, JSONArray pathylist) {
         Shape shape = new Rectangle();
         switch (shapeType) {
             case "class java.awt.geom.Ellipse2D$Double": {
@@ -90,9 +122,35 @@ public class SequenceGenerator {
                 break;
             }
             case "class java.awt.geom.GeneralPath": {
-                Font f = new Font("Microsoft Yahei", Font.BOLD, 30);
-                GlyphVector v = f.createGlyphVector(new JPanel().getFontMetrics(f).getFontRenderContext(), text);
-                shape = v.getOutline();
+                if (text != null && text.length() != 0) {
+                    // case for text
+                    Font f = new Font("Microsoft Yahei", Font.BOLD, 30);
+                    GlyphVector v = f.createGlyphVector(new JPanel().getFontMetrics(f).getFontRenderContext(), text);
+                    shape = v.getOutline();
+                } else {
+                    // case for path
+                    // maybe need a shit?
+                    int size = Math.min(pathxlist.size(), pathylist.size());
+                    if (size != 0) {
+                        GeneralPath tempPath = new GeneralPath();
+                        tempPath.moveTo(pathxlist.getIntValue(0), pathylist.getIntValue(0));
+                        for (int i = 1; i < size; ++i) {
+                            int pX = pathxlist.getIntValue(i);
+                            int pY = pathylist.getIntValue(i);
+                            tempPath.lineTo(pX, pY);
+                        }
+
+                        AffineTransform shiftTrans = new AffineTransform();
+                        shiftTrans.translate(-tempPath
+                                .getBounds2D().getMinX(),
+                                -tempPath.getBounds2D().getMinY());
+                        shape = tempPath.createTransformedShape(shiftTrans);
+
+                    } else {
+                        System.out.println("Warning: No path!");
+                    }
+                }
+
                 break;
             }
             default:

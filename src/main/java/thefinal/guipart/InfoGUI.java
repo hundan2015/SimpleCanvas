@@ -9,6 +9,8 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -31,19 +33,45 @@ public class InfoGUI extends JPanel {
     JLabel objectName;
     JCheckBox filledBox;
     Color shapeColor;
+    JTextField nameField;
 
     InfoGUI() {
         setSize(100, 500);
         setLayout(new GridBagLayout());
+        QuickConstraintFactory qFactory = new QuickConstraintFactory();
         objectName = new JLabel("Press enter to update shape");
-        GridBagConstraints c = new GridBagConstraints();
-        c.gridx = c.gridy = 0;
+        GridBagConstraints c = qFactory.getConstraints(2);
         add(objectName, c);
-        posX = makeNewTextArea("PosX", posX, 0, 1, new IntAreaListener());
-        posY = makeNewTextArea("PosY", posY, 1, 1, new IntAreaListener());
-        scaleX = makeNewTextArea("ScaleX", scaleX, 0, 2, new DoubleAreaListener());
-        scaleY = makeNewTextArea("ScaleY", scaleY, 1, 2, new DoubleAreaListener());
-        rotation = makeNewTextArea("Rotate", rotation, 0, 3, new DoubleAreaListener());
+        qFactory.nextRow();
+        nameField = new JTextField();
+        nameField.addKeyListener(new KeyListener() {
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+                InfoGUIUpdater.updateModel();
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+
+        });
+        nameField.setBorder(BorderFactory.createTitledBorder("Name"));
+        add(nameField, qFactory.getConstraints(2));
+        qFactory.nextRow();
+        posX = makeNewTextArea("PosX", posX, new IntAreaListener(), qFactory.getConstraints(1));
+        posY = makeNewTextArea("PosY", posY, new IntAreaListener(), qFactory.getConstraints(1));
+        qFactory.nextRow();
+        scaleX = makeNewTextArea("ScaleX", scaleX, new DoubleAreaListener(), qFactory.getConstraints(1));
+        scaleY = makeNewTextArea("ScaleY", scaleY, new DoubleAreaListener(), qFactory.getConstraints(1));
+        qFactory.nextRow();
+        rotation = makeNewTextArea("Rotate", rotation, new DoubleAreaListener(), qFactory.getConstraints(1));
 
         filledBox = new JCheckBox();
         filledBox.addActionListener(new ActionListener() {
@@ -54,9 +82,8 @@ public class InfoGUI extends JPanel {
             }
 
         });
-        GridBagConstraints c1 = new GridBagConstraints();
-        c1.gridx = 1;
-        c1.gridy = 3;
+        GridBagConstraints c1 = qFactory.getConstraints(1);
+
         filledBox.setBorderPainted(true);
         filledBox.setPreferredSize(new Dimension(100, 50));
         filledBox.setBorder(BorderFactory.createTitledBorder("Is Filled?"));
@@ -86,18 +113,8 @@ public class InfoGUI extends JPanel {
         InfoGUIUpdater.setInfoGUI(this);
     }
 
-    private JTextField makeNewTextArea(String name, JTextField textfield, int gridPosX, int gridPosY,
-            InputNumArea keyAdapter) {
-        GridBagConstraints c = new GridBagConstraints();
-
-        c.gridx = gridPosX;
-        c.gridy = gridPosY;
-        c.gridwidth = 1;
-        c.gridheight = 1;
-        c.weightx = 1;
-        c.weighty = 1;
-        c.ipadx = 100;
-        c.fill = GridBagConstraints.HORIZONTAL;
+    private JTextField makeNewTextArea(String name, JTextField textfield,
+            InputNumArea keyAdapter, GridBagConstraints c) {
 
         textfield = new JTextField(1);
         textfield.setBorder(BorderFactory.createTitledBorder(name));
@@ -121,6 +138,7 @@ public class InfoGUI extends JPanel {
             rotation.setText(Double.toString(StageViewport.currentActor.rotation));
             filledBox.setSelected(StageViewport.currentActor.isFilled);
             // shapeColor = GlobalModel.currentActor.color;
+            nameField.setText(StageViewport.currentActor.name);
         } else {
             posX.setText("0");
             posY.setText("0");
@@ -129,6 +147,7 @@ public class InfoGUI extends JPanel {
             rotation.setText("0");
             filledBox.setSelected(false);
             shapeColor = Color.white;
+            nameField.setText("NO ACTOR");
         }
     }
 
@@ -141,9 +160,11 @@ public class InfoGUI extends JPanel {
             StageViewport.currentActor.rotation = Double.parseDouble(rotation.getText());
             StageViewport.currentActor.isFilled = filledBox.isSelected();
             // GlobalModel.currentActor.color = shapeColor;
+            StageViewport.currentActor.name = nameField.getText();
         }
         if (StageViewport.currentStage != null)
             StageViewport.currentStage.repaint();
+        ActorListGUI.update();
     }
 
     @Override

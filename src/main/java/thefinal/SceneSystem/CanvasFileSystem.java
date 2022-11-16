@@ -6,9 +6,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import thefinal.GlobalModel;
@@ -50,13 +53,23 @@ public class CanvasFileSystem {
         try {
             sc = new Scanner(currentFile);
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             sc = null;
             e.printStackTrace();
         }
-        String fileString = sc.nextLine();
-        StageViewport.currentStage.setVisible(false);
-        StageViewport.currentStage = null;
+        String fileString;
+        try {
+            fileString = sc.nextLine();
+        } catch (NoSuchElementException e) {
+            fileString = "";
+            JFrame shit = new JFrame();
+            shit.add(new JLabel("Not canvas file!"));
+            shit.setVisible(true);
+        }
+
+        if (StageViewport.currentStage != null) {
+            StageViewport.currentStage.setVisible(false);
+            StageViewport.currentStage = null;
+        }
         for (StageObject stageObject : GlobalModel.stageList) {
             GlobalModel.mainFrame.remove(stageObject);
         }
