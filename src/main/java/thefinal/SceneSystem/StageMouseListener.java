@@ -26,6 +26,7 @@ public class StageMouseListener implements MouseInputListener {
 
     @Override
     public void mouseDragged(MouseEvent e) {
+        StageViewport.currentStage.anchor = null;
         if (!GlobalModel.pathMode) {
             moveMethod(e);
         } else {

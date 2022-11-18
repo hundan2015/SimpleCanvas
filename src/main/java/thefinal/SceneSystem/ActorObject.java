@@ -12,12 +12,18 @@ public class ActorObject {
     public Point transform;
     public Point.Double scale;
     public double rotation;
-    Point size;
+    public Point size;
     private Shape shape;
     public double textShift = 0;
     public Color color;
     public boolean isFilled = false;
     public String text = "";
+
+    public ActorObject(Point transform, Point size, Shape shape, Color color) {
+        createObject(shape, transform, size);
+        this.color = color;
+    }
+
     public String font = "";
     public ArrayList<Point> pathPoint = null;
     public String name;

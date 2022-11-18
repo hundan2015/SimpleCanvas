@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
@@ -17,6 +16,8 @@ import thefinal.guipart.ActorListGUI;
 
 public class StageObject extends JPanel {
     public ArrayList<ActorObject> actorList;
+
+    public ActorObject anchor;
 
     public StageObject() {
         actorList = new ArrayList<>();
@@ -80,6 +81,13 @@ public class StageObject extends JPanel {
         AffineTransform tempTransform = newG.getTransform();
         if (GlobalModel.tempPath != null) {
             newG.draw(GlobalModel.tempPath);
+        }
+        if (anchor != null) {
+            newG.setColor(anchor.color);
+            //newG.setTransform(anchor.getActorTransform());
+            newG.fill(anchor.getShape());
+            newG.draw(anchor.getShape());
+            newG.setTransform(tempTransform);
         }
         for (ActorObject actorObject : actorList) {
             newG.setColor(actorObject.color);

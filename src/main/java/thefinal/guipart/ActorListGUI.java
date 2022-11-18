@@ -1,5 +1,8 @@
 package thefinal.guipart;
 
+import java.awt.Color;
+import java.awt.Point;
+import java.awt.geom.Ellipse2D;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -11,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.ListModel;
+import javax.swing.ListSelectionModel;
 
 import thefinal.GlobalModel;
 import thefinal.StageViewport;
@@ -21,7 +25,17 @@ public class ActorListGUI {
         @Override
         public void valueChanged(ListSelectionEvent e) {
             JList<ActorObject> tempList = (JList<ActorObject>) e.getSource();
-            GlobalModel.setCurrentActor(tempList.getSelectedValue());
+            ActorObject selected = tempList.getSelectedValue();
+            if (selected != null) {
+                GlobalModel.setCurrentActor(selected);
+                Point tempTransform = new Point();
+                tempTransform.x = (int) (selected.transform.x + selected.size.x * selected.scale.x / 2);
+                tempTransform.y = (int) (selected.transform.y + selected.size.y * selected.scale.y / 2);
+                StageViewport.currentStage.anchor = new ActorObject(new Point(tempTransform), new Point(10, 10),
+                        new Ellipse2D.Double(tempTransform.x, tempTransform.y, 10, 10), new Color(255, 0, 0));
+                tempList.clearSelection();
+            }
+
         }
     }
 
@@ -40,10 +54,6 @@ public class ActorListGUI {
         actorListFrame.setVisible(true);
     }
 
-    /**
-     * TODO:
-     * 然后是让选中的物体处放置一个临时anchor。
-     */
     static Vector<ActorObject> circleList = new Vector<>();
     static Vector<ActorObject> lineList = new Vector<>();
     static Vector<ActorObject> squareList = new Vector<>();
@@ -55,12 +65,6 @@ public class ActorListGUI {
     static JList<ActorObject> squareListDisplay;
     static JList<ActorObject> pathListDisplay;
     static JList<ActorObject> textListDisplay;
-
-    static JLabel circleLabel;
-    static JLabel lineLabel;
-    static JLabel squareLabel;
-    static JLabel pathLabel;
-    static JLabel textLabel;
 
     static public void update() {
 
@@ -88,6 +92,7 @@ public class ActorListGUI {
         JList<ActorObject> list;
 
         list = new JList<>(listmodel);
+        list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         list.addListSelectionListener(new ActorListSelectionListener());
         list.setBorder(BorderFactory.createTitledBorder(text));
         actorListFrame.add(list);
