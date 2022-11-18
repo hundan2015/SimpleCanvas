@@ -2,6 +2,7 @@ package thefinal.guipart;
 
 import java.util.Vector;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,15 +17,21 @@ import thefinal.StageViewport;
 import thefinal.SceneSystem.ActorObject;
 
 public class ActorListGUI {
+    private static final class ActorListSelectionListener implements ListSelectionListener {
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+            JList<ActorObject> tempList = (JList<ActorObject>) e.getSource();
+            GlobalModel.setCurrentActor(tempList.getSelectedValue());
+        }
+    }
+
     public static JFrame actorListFrame = new JFrame();
-    public static JList<String> actorListDisplay;
-    static JLabel shits = new JLabel("No actor.");
+    public static JList<ActorObject> actorListDisplay;
+    static JLabel shits = new JLabel("Actors");
     static JPanel rectaglePanel = new JPanel();
     static JPanel textPanel = new JPanel();
     static JPanel ellipsePanel = new JPanel();
     static JPanel linePanel = new JPanel();
-
-
 
     static public void initActorListGUI() {
         actorListFrame.setLayout(new BoxLayout(actorListFrame.getContentPane(), BoxLayout.Y_AXIS));
@@ -33,38 +40,94 @@ public class ActorListGUI {
         actorListFrame.setVisible(true);
     }
 
+    /**
+     * TODO:
+     * 然后是让选中的物体处放置一个临时anchor。
+     */
+    static Vector<ActorObject> circleList = new Vector<>();
+    static Vector<ActorObject> lineList = new Vector<>();
+    static Vector<ActorObject> squareList = new Vector<>();
+    static Vector<ActorObject> pathList = new Vector<>();
+    static Vector<ActorObject> textList = new Vector<>();
+
+    static JList<ActorObject> circleListDisplay;
+    static JList<ActorObject> lineListDisplay;
+    static JList<ActorObject> squareListDisplay;
+    static JList<ActorObject> pathListDisplay;
+    static JList<ActorObject> textListDisplay;
+
+    static JLabel circleLabel;
+    static JLabel lineLabel;
+    static JLabel squareLabel;
+    static JLabel pathLabel;
+    static JLabel textLabel;
+
     static public void update() {
-        if (actorListDisplay != null)
-            actorListFrame.remove(actorListDisplay);
-        Vector<String> shit = gVector();
-        actorListDisplay = new JList<>(shit);
-        if (shit.size() == 0) {
-            shits.setText("null");
-        } else {
-            shits.setText("Fellows");
+
+        if (circleListDisplay != null) {
+            actorListFrame.remove(circleListDisplay);
+            actorListFrame.remove(lineListDisplay);
+            actorListFrame.remove(squareListDisplay);
+            actorListFrame.remove(pathListDisplay);
+            actorListFrame.remove(textListDisplay);
         }
-        actorListDisplay.addListSelectionListener(new ListSelectionListener() {
+        gVector();
+        // actorListDisplay = new JList<>(gVector());
 
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                JList<String> tempList = (JList<String>) e.getSource();
-                int shit = tempList.getSelectedIndex();
-                GlobalModel.setCurrentActor(StageViewport.currentStage.actorList.get(shit));
-            }
+        circleListDisplay = makeListAppend("Circle", circleList);
+        squareListDisplay = makeListAppend("Rectangle", squareList);
+        lineListDisplay = makeListAppend("Line", lineList);
+        textListDisplay = makeListAppend("Text", textList);
+        pathListDisplay = makeListAppend("Path", pathList);
 
-        });
-        actorListFrame.add(actorListDisplay);
         actorListFrame.pack();
         actorListFrame.repaint();
     }
 
-    static Vector<String> gVector()
+    private static JList<ActorObject> makeListAppend(String text, Vector<ActorObject> listmodel) {
+        JList<ActorObject> list;
 
-    {
-        Vector<String> actorObjects = new Vector<>();
-        for (ActorObject actor : StageViewport.currentStage.actorList) {
-            actorObjects.add(actor.name);
-        }
-        return actorObjects;
+        list = new JList<>(listmodel);
+        list.addListSelectionListener(new ActorListSelectionListener());
+        list.setBorder(BorderFactory.createTitledBorder(text));
+        actorListFrame.add(list);
+        return list;
+    }
+
+    /**
+     * Maintaince the lower data model.
+     */
+    static void gVector() {
+        circleList.clear();
+        squareList.clear();
+        textList.clear();
+        pathList.clear();
+        lineList.clear();
+        if (StageViewport.currentStage != null)
+            for (ActorObject actor : StageViewport.currentStage.actorList) {
+                String type = actor.getShape().getClass().toString();
+                switch (type) {
+                    case "class java.awt.geom.Ellipse2D$Double": {
+                        circleList.add(actor);
+                        break;
+                    }
+                    case "class java.awt.geom.Rectangle2D$Double": {
+                        squareList.add(actor);
+                        break;
+                    }
+                    case "class java.awt.geom.Line2D$Double": {
+                        lineList.add(actor);
+                        break;
+                    }
+                    case "class java.awt.geom.GeneralPath": {
+                        if (actor.text == null || actor.text == "") {
+                            pathList.add(actor);
+                        } else {
+                            textList.add(actor);
+                        }
+                        break;
+                    }
+                }
+            }
     }
 }
