@@ -21,6 +21,8 @@ import thefinal.StageViewport;
 import thefinal.SceneSystem.ActorObject;
 
 public class TextGUI extends JFrame {
+    static String font = "Microsoft Yahei";
+
     private final class TextGUIActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -30,16 +32,18 @@ public class TextGUI extends JFrame {
                     break;
                 }
                 case "S": {
-
-                    Font f = new Font("Microsoft Yahei", Font.BOLD, 30);
+                    if (TextGUI.font == null || TextGUI.font == "") {
+                        TextGUI.font = "Microsoft Yahei";
+                    }
+                    Font f = new Font(font, Font.BOLD, 30);
                     String text = textField.getText();
                     GlyphVector v = f.createGlyphVector(getFontMetrics(f).getFontRenderContext(), text);
                     Shape shape = v.getOutline();
                     Rectangle2D shit = shape.getBounds2D();
-
+                    
                     StageViewport.currentStage.addActor(new ActorObject(shape, new Point(10, 10),
                             new Point((int) shit.getWidth(), (int) shit.getHeight()), shit.getHeight(), text,
-                            "Microsoft Yahei"));
+                            font));
                     dispose();
                     break;
                 }
@@ -64,7 +68,32 @@ public class TextGUI extends JFrame {
         GridBagConstraints c = qFac.getConstraints(2);
         qFac.nextRow();
         fontSelecter.addItem("Song");
+        fontSelecter.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TextGUI.font = "宋体";
+            }
+            
+        });
         fontSelecter.addItem("Ya Hei");
+        fontSelecter.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TextGUI.font = "Microsoft Yahei";
+            }
+
+        });
+        fontSelecter.addItem("Fang Song");
+        fontSelecter.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TextGUI.font = "仿宋";
+            }
+
+        });
         add(fontSelecter);
         textField.setBorder(BorderFactory.createTitledBorder("What to say:"));
         textField.setPreferredSize(new Dimension(100, 50));

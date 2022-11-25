@@ -7,6 +7,10 @@ import thefinal.guipart.TheGUI;
  * Hello world!
  *
  */
+
+/**
+ * TODO:actor搜索功能，字体多样式修改
+ */
 public class App {
     public static void main(String[] args) {
         GlobalModel.initGlobalModel();

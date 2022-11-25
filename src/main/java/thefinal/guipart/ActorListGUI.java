@@ -1,8 +1,5 @@
 package thefinal.guipart;
 
-import java.awt.Color;
-import java.awt.Point;
-import java.awt.geom.Ellipse2D;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -11,34 +8,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 
-import thefinal.GlobalModel;
 import thefinal.StageViewport;
 import thefinal.SceneSystem.ActorObject;
 
 public class ActorListGUI {
-    private static final class ActorListSelectionListener implements ListSelectionListener {
-        @Override
-        public void valueChanged(ListSelectionEvent e) {
-            JList<ActorObject> tempList = (JList<ActorObject>) e.getSource();
-            ActorObject selected = tempList.getSelectedValue();
-            if (selected != null) {
-                GlobalModel.setCurrentActor(selected);
-                Point tempTransform = new Point();
-                tempTransform.x = (int) (selected.transform.x + selected.size.x * selected.scale.x / 2);
-                tempTransform.y = (int) (selected.transform.y + selected.size.y * selected.scale.y / 2);
-                StageViewport.currentStage.anchor = new ActorObject(new Point(tempTransform), new Point(10, 10),
-                        new Ellipse2D.Double(tempTransform.x, tempTransform.y, 10, 10), new Color(255, 0, 0));
-                tempList.clearSelection();
-            }
-
-        }
-    }
-
     public static JFrame actorListFrame = new JFrame();
     public static JList<ActorObject> actorListDisplay;
     static JLabel shits = new JLabel("Actors");

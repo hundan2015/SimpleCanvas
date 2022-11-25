@@ -27,9 +27,10 @@ public class TheGUI {
     JScrollPane selectStage;
 
     public void InitGUI() {
-        mainFrame = new JFrame();
+        mainFrame = new JFrame("Simple Canvas!");
         // TODO: Move this frame to the global model.
         // Or this should be a sigliton.
+        SearchListGUI.initSearchListGUI();
         GlobalModel.mainFrame = mainFrame;
         Container theContainer = mainFrame.getContentPane();
         mainFrame.setSize(800, 600);
@@ -68,7 +69,17 @@ public class TheGUI {
             }
 
         });
+        JMenuItem searchItem = new JMenuItem("Search");
+        searchItem.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SearchListGUI.openGUI();
+            }
+            
+        });
         windowMenu.add(selectItem);
+        windowMenu.add(searchItem);
         menuBar.add(windowMenu);
         mainFrame.setJMenuBar(menuBar);
 
