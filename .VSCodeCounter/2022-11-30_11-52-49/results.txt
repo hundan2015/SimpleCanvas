@@ -1,0 +1,65 @@
+Date : 2022-11-30 11:52:49
+Directory : d:\Programing\java\FinalProject\demo
+Total : 28 files,  2820 codes, 177 comments, 322 blanks, all 3319 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Java     |         26 |      1,699 |        173 |        313 |      2,185 |
+| Markdown |          1 |      1,027 |          0 |          2 |      1,029 |
+| XML      |          1 |         94 |          4 |          7 |        105 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                    | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                       |         28 |      2,820 |        177 |        322 |      3,319 |
+| src                                                                                                     |         26 |      1,699 |        173 |        313 |      2,185 |
+| src\main                                                                                                |         24 |      1,620 |        164 |        294 |      2,078 |
+| src\main\java                                                                                           |         24 |      1,620 |        164 |        294 |      2,078 |
+| src\main\java\thefinal                                                                                  |         24 |      1,620 |        164 |        294 |      2,078 |
+| src\main\java\thefinal\SceneSystem                                                                      |          6 |        627 |         72 |         94 |        793 |
+| src\main\java\thefinal\guipart                                                                          |         15 |        909 |         60 |        175 |      1,144 |
+| src\main\java\thefinal\guipart\NumberInput                                                              |          3 |         76 |          7 |         27 |        110 |
+| src\test                                                                                                |          2 |         79 |          9 |         19 |        107 |
+| src\test\java                                                                                           |          2 |         79 |          9 |         19 |        107 |
+| src\test\java\thefinal                                                                                  |          2 |         79 |          9 |         19 |        107 |
+| src\test\java\thefinal\SceneSystem                                                                      |          1 |         68 |          3 |         15 |         86 |
++---------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                | language | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| d:\Programing\java\FinalProject\demo\pom.xml                                                            | XML      |         94 |          4 |          7 |        105 |
+| d:\Programing\java\FinalProject\demo\readme.md                                                          | Markdown |      1,027 |          0 |          2 |      1,029 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\App.java                                    | Java     |         12 |         10 |          4 |         26 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\GlobalModel.java                            | Java     |         63 |         22 |         15 |        100 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\SceneSystem\ActorObject.java                | Java     |        108 |         43 |         19 |        170 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\SceneSystem\CanvasFileSystem.java           | Java     |        103 |          4 |         13 |        120 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\SceneSystem\SequenceGenerator.java          | Java     |        184 |          5 |         18 |        207 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\SceneSystem\SmallPort.java                  | Java     |         47 |          2 |          9 |         58 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\SceneSystem\StageMouseListener.java         | Java     |         96 |          7 |         21 |        124 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\SceneSystem\StageObject.java                | Java     |         89 |         11 |         14 |        114 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\StageViewport.java                          | Java     |          9 |          0 |          6 |         15 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\guipart\ActorListGUI.java                   | Java     |         96 |          4 |         15 |        115 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\guipart\ActorListSelectionListener.java     | Java     |         24 |          4 |          5 |         33 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\guipart\EditorGUI.java                      | Java     |        104 |         10 |         21 |        135 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\guipart\EditorGUIBtnActionListener.java     | Java     |         53 |          0 |          4 |         57 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\guipart\InfoGUI.java                        | Java     |        149 |          3 |         27 |        179 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\guipart\InfoGUIUpdater.java                 | Java     |         13 |          1 |          4 |         18 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\guipart\NumberInput\DoubleAreaListener.java | Java     |         35 |          4 |         13 |         52 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\guipart\NumberInput\InputNumArea.java       | Java     |          7 |          0 |          4 |         11 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\guipart\NumberInput\IntAreaListener.java    | Java     |         34 |          3 |         10 |         47 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\guipart\PageSelectActionListener.java       | Java     |         14 |          2 |          3 |         19 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\guipart\PageSelectPanel.java                | Java     |         71 |          1 |         13 |         85 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\guipart\QuickConstraintFactory.java         | Java     |         31 |         15 |          7 |         53 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\guipart\SearchListGUI.java                  | Java     |         53 |          0 |          8 |         61 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\guipart\TextGUI.java                        | Java     |        100 |          3 |         17 |        120 |
+| d:\Programing\java\FinalProject\demo\src\main\java\thefinal\guipart\TheGUI.java                         | Java     |        125 |         10 |         24 |        159 |
+| d:\Programing\java\FinalProject\demo\src\test\java\thefinal\AppTest.java                                | Java     |         11 |          6 |          4 |         21 |
+| d:\Programing\java\FinalProject\demo\src\test\java\thefinal\SceneSystem\SequenceGeneratorTest.java      | Java     |         68 |          3 |         15 |         86 |
+| Total                                                                                                   |          |      2,820 |        177 |        322 |      3,319 |
++---------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

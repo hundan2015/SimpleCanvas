@@ -105,10 +105,8 @@ public class InfoGUI extends JPanel {
             }
 
         });
-        c1 = new GridBagConstraints();
-        c1.gridx = 0;
-        c1.gridy = 4;
-        c1.weightx = 2;
+        qFactory.nextRow();
+        c1 = qFactory.getConstraints(1);
         add(colorButton, c1);
         InfoGUIUpdater.setInfoGUI(this);
     }
