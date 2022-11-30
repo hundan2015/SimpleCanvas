@@ -84,7 +84,8 @@ public class SequenceGenerator {
         JSONArray pathXList = object.getJSONArray("pathxlist");
         JSONArray pathYList = object.getJSONArray("pathylist");
         String name = object.getString("name");
-        Shape shape = getShapeType(shapeType, text, pathXList, pathYList);
+        Shape shape = getShapeType(shapeType, text, pathXList, pathYList,font);
+    
         Rectangle2D shit = shape.getBounds2D();
         ArrayList<Point> points = new ArrayList<>();
         if (pathXList != null && pathYList != null) {
@@ -106,7 +107,7 @@ public class SequenceGenerator {
         return res;
     }
 
-    private static Shape getShapeType(String shapeType, String text, JSONArray pathxlist, JSONArray pathylist) {
+    private static Shape getShapeType(String shapeType, String text, JSONArray pathxlist, JSONArray pathylist,String font) {
         Shape shape = new Rectangle();
         switch (shapeType) {
             case "class java.awt.geom.Ellipse2D$Double": {
@@ -124,7 +125,7 @@ public class SequenceGenerator {
             case "class java.awt.geom.GeneralPath": {
                 if (text != null && text.length() != 0) {
                     // case for text
-                    Font f = new Font("Microsoft Yahei", Font.BOLD, 30);
+                    Font f = new Font(font, Font.BOLD, 30);
                     GlyphVector v = f.createGlyphVector(new JPanel().getFontMetrics(f).getFontRenderContext(), text);
                     shape = v.getOutline();
                 } else {
